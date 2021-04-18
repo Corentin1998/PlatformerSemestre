@@ -8,8 +8,14 @@
          "encoding":"base64",
          "height":8,
          "id":1,
-         "name":"Calque de Tuiles 1",
+         "name":"solides",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"collide",
+                 "type":"string",
+                 "value":""
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":16,
