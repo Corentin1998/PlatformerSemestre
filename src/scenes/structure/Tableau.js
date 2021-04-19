@@ -22,6 +22,8 @@ class Tableau extends Phaser.Scene{
             'assets/player.png',
             { frameWidth: 32, frameHeight: 48  }
         );
+
+        //this.load.spritesheet("tourbillon", "assets/tourbillon.png");
         this.load.spritesheet('stance',
             'assets/player_stance.png',
             { frameWidth: 32, frameHeight: 48 }
@@ -227,6 +229,7 @@ class Tableau extends Phaser.Scene{
 
 
 }
+
 
 /**
  * Le tableau en cours

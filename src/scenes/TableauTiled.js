@@ -47,9 +47,10 @@ class TableauTiled extends Tableau{
         //---- ajoute les plateformes simples ----------------------------
 
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
-        // this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
+        this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
+        this.eau = this.map.createLayer('eau', this.tileset, 0, 0);
         // this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
-        // this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
+        this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
 
         //on définit les collisions, plusieurs méthodes existent:
 
@@ -65,7 +66,8 @@ class TableauTiled extends Tableau{
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
         this.solides.setCollisionByExclusion(-1, true);
-        // this.lave.setCollisionByExclusion(-1, true);
+        this.lave.setCollisionByExclusion(-1, true);
+        this.eau.setCollisionByExclusion(-1, true);
         
         //this.devant.setCollisionByExclusion(-1, true);
 
@@ -104,13 +106,13 @@ class TableauTiled extends Tableau{
 
         //--------effet sur la lave------------------------
 
-        /*
+        
 
-        this.laveFxContainer=this.add.container();
+        /*this.laveFxContainer=this.add.container();
         this.lave.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
-          if(tile.index !== -1){ //uniquement pour les tiles remplies
+          if(tile.index !== -1){ //uniquement pour les tiles remplies*/
 
-
+/*
         //dé-commenter pour mieux comprendre ce qui se passe
                 console.log("lave tile",tile.index,tile);
                 let g=ici.add.graphics();
@@ -137,9 +139,9 @@ class TableauTiled extends Tableau{
                     scale: {start: 0, end: 1},
                     alpha: { start: 1, end: 0 },
                     blendMode: Phaser.BlendModes.ADD,
-                };
+                };*/
 
-                */
+                
                
                 //let props2={...props}; //copie props sans props 2 */
                 //props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
@@ -147,27 +149,28 @@ class TableauTiled extends Tableau{
                 /*ok tout est prêt...ajoute notre objet graphique*/
                 //let laveParticles = ici.add.particles('particles');
 
+                /*
                 //ajoute le premier émetteur de particules
-                //laveParticles.createEmitter(props);
+                laveParticles.createEmitter(props);
                 //on ne va pas ajouter le second effet émetteur mobile car il consomme trop de ressources
-                //if(!ici.isMobile) {
-                //    laveParticles.createEmitter(props2); // ajoute le second
-                //}
+                if(!ici.isMobile) {
+                    laveParticles.createEmitter(props2); // ajoute le second
+                }
                 // positionne le tout au niveau de la tile
-                //laveParticles.x=tile.pixelX+32;
-                //laveParticles.y=tile.pixelY+32;
-                //ici.laveFxContainer.add(laveParticles);
+                laveParticles.x=tile.pixelX+32;
+                laveParticles.y=tile.pixelY+32;
+                ici.laveFxContainer.add(laveParticles);
 
                 //optimisation (les particules sont invisibles et désactivées par défaut)
                 //elles seront activées via update() et optimizeDisplay()
-                //laveParticles.pause();
-                //laveParticles.visible=false;
+                laveParticles.pause();
+                laveParticles.visible=false;
                 //on définit un rectangle pour notre tile de particules qui nous servira plus tard
-                //laveParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
+                laveParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
 
-            //}
+            }
 
-        //})
+        })*/
 
         //--------allez on se fait un peu la même en plus simple mais avec les étoiles----------
 
@@ -207,11 +210,17 @@ class TableauTiled extends Tableau{
             faceColor: null // Color of colliding face edges
         });
         //debug lave en rouge
-        // this.lave.renderDebug(debug,{
-        //     tileColor: null, // Couleur des tiles qui ne collident pas
-        //     collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
-        //     faceColor: null // Color of colliding face edges
-        // });
+        this.eau.renderDebug(debug,{
+            tileColor: null, // Couleur des tiles qui ne collident pas
+            collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
+            faceColor: null // Color of colliding face edges
+       });
+
+        this.lave.renderDebug(debug,{
+             tileColor: null, // Couleur des tiles qui ne collident pas
+             collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
+             faceColor: null // Color of colliding face edges
+        });
 
 
         //---------- parallax ciel (rien de nouveau) -------------
@@ -246,6 +255,7 @@ class TableauTiled extends Tableau{
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
         //quand on touche la lave, on meurt
         this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
+        this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
         //--------- Z order -----------------------
 
@@ -256,12 +266,15 @@ class TableauTiled extends Tableau{
         monstersContainer.setDepth(z--);
         this.stars.setDepth(z--);
         starsFxContainer.setDepth(z--);
-        //this.devant.setDepth(z--);
+        this.devant.setDepth(z--);
         this.solides.setDepth(z--);
         //this.laveFxContainer.setDepth(z--);
-        // this.lave.setDepth(z--);
+        this.lave.setDepth(z--);
+        this.eau.setDepth(z--);
+        this.devant.setDepth(z--);
         this.player.setDepth(z--);
-       // this.derriere.setDepth(z--);
+        this.devant.setDepth(z--);
+        // this.derriere.setDepth(z--);
         this.sky2.setDepth(z--);
         this.sky.setDepth(z--);
 
