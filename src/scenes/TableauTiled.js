@@ -14,11 +14,12 @@ class TableauTiled extends Tableau{
         // nos images
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTileset.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiled.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiled2V2.json');
 
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('night', 'assets/night.jpg');
+        this.load.image('star', 'assets/star.png');
         //atlas de texture généré avec https://free-tex-packer.com/app/
         //on y trouve notre étoiles et une tête de mort
         this.load.atlas('particles', 'assets/particles/particles.png', 'assets/particles/particles.json');
@@ -46,9 +47,9 @@ class TableauTiled extends Tableau{
         //---- ajoute les plateformes simples ----------------------------
 
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
-        this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
-        this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
-        this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
+        // this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
+        // this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
+        // this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
 
         //on définit les collisions, plusieurs méthodes existent:
 
@@ -56,7 +57,7 @@ class TableauTiled extends Tableau{
         //permet de travailler sur un seul layer dans tiled et des définir les collisions en fonction des graphiques
         //exemple ici https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
         //this.solides.set({Collision: true });
-        this.lave.setCollisionByProperty({Collision: true });
+        //this.lave.setCollisionByProperty({Collision: true });
         //this.devant.setCollisionByProperty({Collision: true });
         this.solides.setCollisionByProperty({Collision: true });
 
@@ -64,8 +65,8 @@ class TableauTiled extends Tableau{
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
         this.solides.setCollisionByExclusion(-1, true);
-        this.lave.setCollisionByExclusion(-1, true);
-
+        // this.lave.setCollisionByExclusion(-1, true);
+        
         //this.devant.setCollisionByExclusion(-1, true);
 
         // 3 Permet d'utiliser l'éditeur de collision de Tiled...mais ne semble pas marcher pas avec le moteur de physique ARCADE, donc oubliez cette option :(
@@ -92,14 +93,13 @@ class TableauTiled extends Tableau{
 
         
         let monstersContainer=this.add.container();
-        /*let montableau=this;
+        let montableau=this;
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         this.flyingMonstersObjects.forEach(monsterObject => {
             let monster=new MonsterFly(montableau,monsterObject.x,monsterObject.y);
             monstersContainer.add(monster);
         });
-        */
         
 
         //--------effet sur la lave------------------------
@@ -193,7 +193,6 @@ class TableauTiled extends Tableau{
 
 
 
-
         //----------débug---------------------
         
         //pour débugger les collisions sur chaque layer
@@ -208,11 +207,11 @@ class TableauTiled extends Tableau{
             faceColor: null // Color of colliding face edges
         });
         //debug lave en rouge
-        this.lave.renderDebug(debug,{
-            tileColor: null, // Couleur des tiles qui ne collident pas
-            collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
-            faceColor: null // Color of colliding face edges
-        });
+        // this.lave.renderDebug(debug,{
+        //     tileColor: null, // Couleur des tiles qui ne collident pas
+        //     collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
+        //     faceColor: null // Color of colliding face edges
+        // });
 
 
         //---------- parallax ciel (rien de nouveau) -------------
@@ -257,10 +256,10 @@ class TableauTiled extends Tableau{
         monstersContainer.setDepth(z--);
         this.stars.setDepth(z--);
         starsFxContainer.setDepth(z--);
-        this.devant.setDepth(z--);
+        //this.devant.setDepth(z--);
         this.solides.setDepth(z--);
         //this.laveFxContainer.setDepth(z--);
-        this.lave.setDepth(z--);
+        // this.lave.setDepth(z--);
         this.player.setDepth(z--);
        // this.derriere.setDepth(z--);
         this.sky2.setDepth(z--);
