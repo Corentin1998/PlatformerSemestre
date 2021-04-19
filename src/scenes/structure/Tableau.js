@@ -23,7 +23,7 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 32, frameHeight: 48  }
         );
 
-        //this.load.spritesheet("tourbillon", "assets/tourbillon.png");
+        this.load.image("tourbillon", "assets/tourbillon.png");
         this.load.spritesheet('stance',
             'assets/player_stance.png',
             { frameWidth: 32, frameHeight: 48 }
@@ -52,7 +52,11 @@ class Tableau extends Phaser.Scene{
         this.blood.displayHeight=64;
         this.blood.visible=false;
 
+
+
     }
+
+
     update(){
         super.update();
         this.player.move();
