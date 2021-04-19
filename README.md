@@ -9,3 +9,4 @@ En ce qui concerne le "lancer", j'ai tenté en vain mais il reste les tentatives
 
 Mon niveau n'a évidemment rien de finalisé niveau graphismes, mais c'était surtout l'occasion de retoucher à Tiled et de m'y familiariser un peu plus encore et réussir à jongler entre le logiciel et le code.
 PS : j'ai vu le problème avec les assets où un pixel dépasse sur un autre, je l'ai rectifié mais pas dans cette version.
+PS2 : j'ai accéléré la vitesse du personnage volontairement pour que vous arriviez jusqu'à la fin du niveau (qui est court, certes) plus rapidement.
