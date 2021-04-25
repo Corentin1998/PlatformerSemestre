@@ -1,4 +1,4 @@
-class TableauTiled extends Tableau{
+class TableauTiled2 extends Tableau{
     /**
      * Ce tableau démontre comment se servir de Tiled, un petit logiciel qui permet de designer des levels et de les importer dans Phaser (entre autre).
      *
@@ -12,9 +12,9 @@ class TableauTiled extends Tableau{
         super.preload();
         // ------pour TILED-------------
         // nos images
-        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV3.png');
+        this.load.image('tiles', 'assets/tilemaps/tableauTiledTileset.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV3.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiled2V2.json');
 
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
@@ -35,7 +35,7 @@ class TableauTiled extends Tableau{
         //notre map
         this.map = this.make.tilemap({ key: 'map' });
         //nos images qui vont avec la map
-        this.tileset = this.map.addTilesetImage('tableauTiledTilesetV3', 'tiles');
+        this.tileset = this.map.addTilesetImage('tableauTiledTileset', 'tiles');
 
         //on agrandit le champ de la caméra du coup
         let largeurDuTableau=this.map.widthInPixels;
