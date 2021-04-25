@@ -20,14 +20,14 @@ class Tableau extends Phaser.Scene{
         this.load.image('spike', 'assets/spike.png');
         this.load.spritesheet('player',
             'assets/player.png',
-            { frameWidth: 32, frameHeight: 48  }
+            { frameWidth: 40, frameHeight: 64  }
         );
 
         this.load.image("tourbillon", "assets/tourbillon.png");
-        this.load.spritesheet('stance',
+        /*this.load.spritesheet('stance',
             'assets/player_stance.png',
-            { frameWidth: 32, frameHeight: 48 }
-        );
+            { frameWidth: 40, frameHeight: 64 }
+        );*/
     }
     create(){
         Tableau.current=this;
