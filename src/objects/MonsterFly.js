@@ -39,7 +39,7 @@ class MonsterFly extends ObjetEnnemi{
         //ceci a pour effet de décaler les animations pour ce même objet
         scene.tweens.add({
                 targets:this,
-                duration:200,
+                duration:100,
                 delay:Math.random()*1000,
                 alpha:{
                     startDelay:Math.random()*5000,
