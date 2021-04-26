@@ -1,0 +1,39 @@
+{
+  "frames": {
+    "bulle": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 50
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 50
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 50
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.6",
+    "image": "bulle.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 50,
+      "h": 50
+    },
+    "scale": 1
+  }
+}

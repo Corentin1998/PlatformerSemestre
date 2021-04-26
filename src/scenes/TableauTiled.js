@@ -20,13 +20,14 @@ class TableauTiled extends Tableau{
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('night', 'assets/night.jpg');
         this.load.image('star', 'assets/star.png');
+
         //atlas de texture généré avec https://free-tex-packer.com/app/
         //on y trouve notre étoiles et une tête de mort
         this.load.atlas('particles', 'assets/particles/particles.png', 'assets/particles/particles.json');
+        this.load.atlas('bulle', 'assets/particles/bulle.png', 'assets/particles/bulle.json');
     }
     create() {
         super.create();
-
         //on en aura besoin...
         let ici=this;
 
@@ -61,8 +62,6 @@ class TableauTiled extends Tableau{
         //this.lave.setCollisionByProperty({Collision: true });
         //this.devant.setCollisionByProperty({Collision: true });
         this.solides.setCollisionByProperty({Collision: true });
-
-            
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
         this.solides.setCollisionByExclusion(-1, true);
@@ -106,20 +105,19 @@ class TableauTiled extends Tableau{
 
         //--------effet sur la lave------------------------
 
-        
-
-        /*this.laveFxContainer=this.add.container();
+        this.laveFxContainer=this.add.container();
         this.lave.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
           if(tile.index !== -1){ //uniquement pour les tiles remplies*/
 
-/*
         //dé-commenter pour mieux comprendre ce qui se passe
+        /*
                 console.log("lave tile",tile.index,tile);
                 let g=ici.add.graphics();
                 laveFxContainer.add(g);
                 g.setPosition(tile.pixelX,tile.pixelY)
                 g.lineStyle(1,0xFF0000);
                 g.strokeRect(0, 0, 64, 64);
+                */
 
                 //on va créer des particules
                 let props={
@@ -139,17 +137,17 @@ class TableauTiled extends Tableau{
                     scale: {start: 0, end: 1},
                     alpha: { start: 1, end: 0 },
                     blendMode: Phaser.BlendModes.ADD,
-                };*/
+                };
 
                 
                
-                //let props2={...props}; //copie props sans props 2 */
-                //props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
+                let props2={...props}; //copie props sans props 2 */
+                props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
 
                 /*ok tout est prêt...ajoute notre objet graphique*/
-                //let laveParticles = ici.add.particles('particles');
+                let laveParticles = ici.add.particles('particles');
 
-                /*
+                
                 //ajoute le premier émetteur de particules
                 laveParticles.createEmitter(props);
                 //on ne va pas ajouter le second effet émetteur mobile car il consomme trop de ressources
@@ -170,8 +168,71 @@ class TableauTiled extends Tableau{
 
             }
 
-        })*/
+        })
 
+        //--------effet sur l'eau------------------------
+
+        this.eauFxContainer=this.add.container();
+        this.eau.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
+          if(tile.index !== -1){ //uniquement pour les tiles remplies*/
+
+        //dé-commenter pour mieux comprendre ce qui se passe
+        /*
+                console.log("eau tile",tile.index,tile);
+                let g=ici.add.graphics();
+                eauFxContainer.add(g);
+                g.setPosition(tile.pixelX,tile.pixelY)
+                g.lineStyle(1,0xFF0000);
+                g.strokeRect(0, 0, 64, 64);
+                */
+
+                //on va créer des particules
+                let props={
+                    frame: [
+                        'bulle', //pour afficher aussi des étoiles
+                    ],
+                    frequency:200,
+                    lifespan: 2000,
+                    quantity:2,
+                    x:{min:-32,max:32},
+                    y:{min:-12,max:52},
+                    tint:[  0x0000ff,0x0066ff,0x3333ff,0x3366ff ],
+                    rotate: {min:-10,max:10},
+                    speedX: { min: -10, max: 10 },
+                    speedY: { min: -20, max: -30 },
+                    scale: {start: 0, end: 1},
+                    alpha: { start: 1, end: 0 },
+                    blendMode: Phaser.BlendModes.ADD,
+                };
+
+
+                //let props2={...props}; //copie props sans props 2 */
+                //props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
+
+                /*ok tout est prêt...ajoute notre objet graphique*/
+                let eauParticles = ici.add.particles('bulle');
+                
+                //ajoute le premier émetteur de particules
+                eauParticles.createEmitter(props);
+                //on ne va pas ajouter le second effet émetteur mobile car il consomme trop de ressources
+                /*if(!ici.isMobile) {
+                    eauParticles.createEmitter(props2); // ajoute le second
+                }*/
+                // positionne le tout au niveau de la tile
+                eauParticles.x=tile.pixelX+32;
+                eauParticles.y=tile.pixelY+32;
+                ici.eauFxContainer.add(eauParticles);
+
+                //optimisation (les particules sont invisibles et désactivées par défaut)
+                //elles seront activées via update() et optimizeDisplay()
+                eauParticles.pause();
+                eauParticles.visible=false;
+                //on définit un rectangle pour notre tile de particules qui nous servira plus tard
+                eauParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
+
+            }
+
+        })
         //--------allez on se fait un peu la même en plus simple mais avec les étoiles----------
 
         let starsFxContainer=ici.add.container();
@@ -209,18 +270,20 @@ class TableauTiled extends Tableau{
             collidingTileColor: new Phaser.Display.Color(0, 255, 0, 255), //Couleur des tiles qui collident
             faceColor: null // Color of colliding face edges
         });
-        //debug lave en rouge
+        //debug eau en rouge
         this.eau.renderDebug(debug,{
             tileColor: null, // Couleur des tiles qui ne collident pas
             collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
             faceColor: null // Color of colliding face edges
        });
 
+       //debug lave en rouge
         this.lave.renderDebug(debug,{
              tileColor: null, // Couleur des tiles qui ne collident pas
              collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
              faceColor: null // Color of colliding face edges
         });
+
 
 
         //---------- parallax ciel (rien de nouveau) -------------
@@ -253,7 +316,7 @@ class TableauTiled extends Tableau{
         this.physics.add.collider(this.stars, this.solides);
         //si le joueur touche une étoile dans le groupe...
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
-        //quand on touche la lave, on meurt
+        //quand on touche la lave/eau, on meurt
         this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
         this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
@@ -268,8 +331,9 @@ class TableauTiled extends Tableau{
         starsFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.solides.setDepth(z--);
-        //this.laveFxContainer.setDepth(z--);
+        this.laveFxContainer.setDepth(z--);
         this.lave.setDepth(z--);
+        this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
         this.devant.setDepth(z--);
         this.player.setDepth(z--);
@@ -285,12 +349,32 @@ class TableauTiled extends Tableau{
      */
 
     optimizeDisplay(){
-        return;
+        //return;
         let world=this.cameras.main.worldView; // le rectagle de la caméra, (les coordonnées de la zone visible)
 
         // on va activer / désactiver les particules de lave
         
         for( let particule of this.laveFxContainer.getAll()){ // parcours toutes les particules de lave
+            if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
+                //si le rectangle de la particule est dans le rectangle de la caméra
+                if(!particule.visible){
+                    //on active les particules
+                    particule.resume();
+                    particule.visible=true;
+                }
+            }else{
+                //si le rectangle de la particule n'est PAS dans le rectangle de la caméra
+                if(particule.visible){
+                    //on désactive les particules
+                    particule.pause();
+                    particule.visible=false;
+                }
+            }
+        }
+
+        // on va activer / désactiver les particules d'eau
+
+        for( let particule of this.eauFxContainer.getAll()){ // parcours toutes les particules d'eau
             if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
                 //si le rectangle de la particule est dans le rectangle de la caméra
                 if(!particule.visible){
@@ -342,8 +426,5 @@ class TableauTiled extends Tableau{
             this.optimizeDisplay();
         }
     }
-
-
-
 
 }
