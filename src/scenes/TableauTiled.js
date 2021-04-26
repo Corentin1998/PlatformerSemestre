@@ -289,6 +289,7 @@ class TableauTiled extends Tableau{
         //---------- parallax ciel (rien de nouveau) -------------
 
         //on change de ciel, on fait une tileSprite ce qui permet d'avoir une image qui se répète
+        
         this.sky=this.add.tileSprite(
             0,
             0,
@@ -412,7 +413,7 @@ class TableauTiled extends Tableau{
 
 
     update(){
-        super.update();
+        super.update();  
         this.moveParallax();
 
         //optimisation
