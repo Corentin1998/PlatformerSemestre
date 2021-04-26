@@ -191,9 +191,9 @@ class TableauTiled extends Tableau{
                     frame: [
                         'bulle', //pour afficher aussi des étoiles
                     ],
-                    frequency:200,
-                    lifespan: 2000,
-                    quantity:2,
+                    frequency:400,
+                    lifespan: 1000,
+                    quantity:1,
                     x:{min:-32,max:32},
                     y:{min:-12,max:52},
                     tint:[  0x0000ff,0x0066ff,0x3333ff,0x3366ff ],
@@ -201,7 +201,7 @@ class TableauTiled extends Tableau{
                     speedX: { min: -10, max: 10 },
                     speedY: { min: -20, max: -30 },
                     scale: {start: 0, end: 1},
-                    alpha: { start: 1, end: 0 },
+                    alpha: { start: 1, end: 1 },
                     blendMode: Phaser.BlendModes.ADD,
                 };
 
@@ -220,7 +220,7 @@ class TableauTiled extends Tableau{
                 }*/
                 // positionne le tout au niveau de la tile
                 eauParticles.x=tile.pixelX+32;
-                eauParticles.y=tile.pixelY+32;
+                eauParticles.y=tile.pixelY+62;
                 ici.eauFxContainer.add(eauParticles);
 
                 //optimisation (les particules sont invisibles et désactivées par défaut)
@@ -245,7 +245,7 @@ class TableauTiled extends Tableau{
                 scale: {start: 0.8, end: 0.5},
                 alpha: { start: 1, end: 0 },
                 blendMode: Phaser.BlendModes.ADD,
-                lifespan : 3000,
+                lifespan : 2000,
                 speed:40
             });
             etoile.on("disabled",function(){
