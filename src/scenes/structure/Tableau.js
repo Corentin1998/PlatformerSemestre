@@ -91,7 +91,17 @@ class Tableau extends Phaser.Scene{
         })
     }
 
-    SpeedDown (player, lave)
+    Bounding (player, champignon)
+    {
+        player.setVelocityY(-650);
+    }
+    /**
+     * Aïeee ça fait mal
+     * @param player
+     * @param lave
+     */
+
+    SpeedDown (player, boue)
     {
         
         player.setVelocityX(200);

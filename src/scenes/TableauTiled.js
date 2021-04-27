@@ -12,9 +12,9 @@ class TableauTiled extends Tableau{
         super.preload();
         // ------pour TILED-------------
         // nos images
-        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV3.png');
+        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV4.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV4.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV5.json');
 
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
@@ -36,7 +36,7 @@ class TableauTiled extends Tableau{
         //notre map
         this.map = this.make.tilemap({ key: 'map' });
         //nos images qui vont avec la map
-        this.tileset = this.map.addTilesetImage('tableauTiledTilesetV3', 'tiles');
+        this.tileset = this.map.addTilesetImage('tableauTiledTilesetV4', 'tiles');
 
         //on agrandit le champ de la caméra du coup
         let largeurDuTableau=this.map.widthInPixels;
@@ -48,7 +48,8 @@ class TableauTiled extends Tableau{
         //---- ajoute les plateformes simples ----------------------------
 
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
-        this.lave = this.map.createLayer('lave', this.tileset, 0, 0);
+        this.champignon = this.map.createLayer('champignon', this.tileset, 0, 0);
+        this.boue = this.map.createLayer('boue', this.tileset, 0, 0);
         this.eau = this.map.createLayer('eau', this.tileset, 0, 0);
         // this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
         this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
@@ -59,13 +60,15 @@ class TableauTiled extends Tableau{
         //permet de travailler sur un seul layer dans tiled et des définir les collisions en fonction des graphiques
         //exemple ici https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
         //this.solides.set({Collision: true });
-        //this.lave.setCollisionByProperty({Collision: true });
+        //this.boue.setCollisionByProperty({Collision: true });
         //this.devant.setCollisionByProperty({Collision: true });
         this.solides.setCollisionByProperty({Collision: true });
+        this.champignon.setCollisionByProperty({Collision: true });
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
         this.solides.setCollisionByExclusion(-1, true);
-        this.lave.setCollisionByExclusion(-1, true);
+        this.champignon.setCollisionByExclusion(-1, true);
+        this.boue.setCollisionByExclusion(-1, true);
         this.eau.setCollisionByExclusion(-1, true);
         
         //this.devant.setCollisionByExclusion(-1, true);
@@ -103,17 +106,17 @@ class TableauTiled extends Tableau{
         });
         
 
-        //--------effet sur la lave------------------------
+        //--------effet sur la boue------------------------
 
-        this.laveFxContainer=this.add.container();
-        this.lave.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
+        this.boueFxContainer=this.add.container();
+        this.boue.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de boue pour générer des particules
           if(tile.index !== -1){ //uniquement pour les tiles remplies*/
 
         //dé-commenter pour mieux comprendre ce qui se passe
         /*
-                console.log("lave tile",tile.index,tile);
+                console.log("boue tile",tile.index,tile);
                 let g=ici.add.graphics();
-                laveFxContainer.add(g);
+                boueFxContainer.add(g);
                 g.setPosition(tile.pixelX,tile.pixelY)
                 g.lineStyle(1,0xFF0000);
                 g.strokeRect(0, 0, 64, 64);
@@ -145,26 +148,26 @@ class TableauTiled extends Tableau{
                 props2.blendMode=Phaser.BlendModes.MULTIPLY; // un autre blend mode plus sombre
 
                 /*ok tout est prêt...ajoute notre objet graphique*/
-                let laveParticles = ici.add.particles('particles');
+                let boueParticles = ici.add.particles('particles');
 
                 
                 //ajoute le premier émetteur de particules
-                laveParticles.createEmitter(props);
+                boueParticles.createEmitter(props);
                 //on ne va pas ajouter le second effet émetteur mobile car il consomme trop de ressources
                 if(!ici.isMobile) {
-                    laveParticles.createEmitter(props2); // ajoute le second
+                    boueParticles.createEmitter(props2); // ajoute le second
                 }
                 // positionne le tout au niveau de la tile
-                laveParticles.x=tile.pixelX+32;
-                laveParticles.y=tile.pixelY+32;
-                ici.laveFxContainer.add(laveParticles);
+                boueParticles.x=tile.pixelX+32;
+                boueParticles.y=tile.pixelY+32;
+                ici.boueFxContainer.add(boueParticles);
 
                 //optimisation (les particules sont invisibles et désactivées par défaut)
                 //elles seront activées via update() et optimizeDisplay()
-                laveParticles.pause();
-                laveParticles.visible=false;
+                boueParticles.pause();
+                boueParticles.visible=false;
                 //on définit un rectangle pour notre tile de particules qui nous servira plus tard
-                laveParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
+                boueParticles.rectangle=new Phaser.Geom.Rectangle(tile.pixelX,tile.pixelY,64,64);
 
             }
 
@@ -173,7 +176,7 @@ class TableauTiled extends Tableau{
         //--------effet sur l'eau------------------------
 
         this.eauFxContainer=this.add.container();
-        this.eau.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de lave pour générer des particules
+        this.eau.forEachTile(function(tile){ //on boucle sur TOUTES les tiles de boue pour générer des particules
           if(tile.index !== -1){ //uniquement pour les tiles remplies*/
 
         //dé-commenter pour mieux comprendre ce qui se passe
@@ -270,6 +273,13 @@ class TableauTiled extends Tableau{
             collidingTileColor: new Phaser.Display.Color(0, 255, 0, 255), //Couleur des tiles qui collident
             faceColor: null // Color of colliding face edges
         });
+
+        this.champignon.renderDebug(debug,{
+            tileColor: null, // Couleur des tiles qui ne collident pas
+            collidingTileColor: new Phaser.Display.Color(0, 255, 0, 255), //Couleur des tiles qui collident
+            faceColor: null // Color of colliding face edges
+        });
+
         //debug eau en rouge
         this.eau.renderDebug(debug,{
             tileColor: null, // Couleur des tiles qui ne collident pas
@@ -277,8 +287,8 @@ class TableauTiled extends Tableau{
             faceColor: null // Color of colliding face edges
        });
 
-       //debug lave en rouge
-        this.lave.renderDebug(debug,{
+       //debug boue en rouge
+        this.boue.renderDebug(debug,{
              tileColor: null, // Couleur des tiles qui ne collident pas
              collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
              faceColor: null // Color of colliding face edges
@@ -317,8 +327,8 @@ class TableauTiled extends Tableau{
         this.physics.add.collider(this.stars, this.solides);
         //si le joueur touche une étoile dans le groupe...
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
-        //quand on touche la lave/eau, on meurt
-        this.physics.add.collider(this.player, this.lave,this.SpeedDown,null,this);
+        //quand on touche la boue/eau, on meurt
+        this.physics.add.collider(this.player, this.champignon,this.Bounding,null,this);
         this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
         //--------- Z order -----------------------
@@ -332,8 +342,9 @@ class TableauTiled extends Tableau{
         starsFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.solides.setDepth(z--);
-        this.laveFxContainer.setDepth(z--);
-        this.lave.setDepth(z--);
+        this.champignon.setDepth(z--);
+        this.boueFxContainer.setDepth(z--);
+        this.boue.setDepth(z--);
         this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
         this.devant.setDepth(z--);
@@ -353,9 +364,9 @@ class TableauTiled extends Tableau{
         //return;
         let world=this.cameras.main.worldView; // le rectagle de la caméra, (les coordonnées de la zone visible)
 
-        // on va activer / désactiver les particules de lave
+        // on va activer / désactiver les particules de boue
         
-        for( let particule of this.laveFxContainer.getAll()){ // parcours toutes les particules de lave
+        for( let particule of this.boueFxContainer.getAll()){ // parcours toutes les particules de boue
             if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
                 //si le rectangle de la particule est dans le rectangle de la caméra
                 if(!particule.visible){
