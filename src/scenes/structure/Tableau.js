@@ -91,33 +91,44 @@ class Tableau extends Phaser.Scene{
         })
     }
 
-    ramasserEtoile (player, star)
+    SpeedDown (player, lave)
     {
-        star.disableBody(true, true);
-        star.emit("disabled");
-        ui.gagne();
+        
+        player.setVelocityX(200);
 
-        //va lister tous les objets de la scène pour trouver les étoies et vérifier si elles sont actives
-        /*
-        let totalActive=0;
-        for(let child of this.children.getChildren()){
-            if(child.texture && child.texture.key==="star"){
-                if(child.active){
-                    totalActive++;
-                }
-            }
-        }
-        if(totalActive===0){
-            this.win();
-        }
-        */
     }
-
     /**
      * Aïeee ça fait mal
      * @param player
-     * @param spike
+     * @param lave
      */
+
+     ramasserEtoile (player, star)
+     {
+         star.disableBody(true, true);
+         star.emit("disabled");
+         ui.gagne();
+ 
+         //va lister tous les objets de la scène pour trouver les étoies et vérifier si elles sont actives
+         /*
+         let totalActive=0;
+         for(let child of this.children.getChildren()){
+             if(child.texture && child.texture.key==="star"){
+                 if(child.active){
+                     totalActive++;
+                 }
+             }
+         }
+         if(totalActive===0){
+             this.win();
+         }
+         */
+     }
+     /**
+      * Aïeee ça fait mal
+      * @param player
+      * @param spike
+      */
     hitSpike (player, spike)
     {
         this.physics.pause();

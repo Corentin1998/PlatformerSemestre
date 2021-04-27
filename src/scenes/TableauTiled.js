@@ -318,7 +318,7 @@ class TableauTiled extends Tableau{
         //si le joueur touche une étoile dans le groupe...
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
         //quand on touche la lave/eau, on meurt
-        this.physics.add.collider(this.player, this.lave,this.playerDie,null,this);
+        this.physics.add.collider(this.player, this.lave,this.SpeedDown,null,this);
         this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
         //--------- Z order -----------------------
