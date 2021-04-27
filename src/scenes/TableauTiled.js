@@ -18,7 +18,9 @@ class TableauTiled extends Tableau{
 
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
-        this.load.image('night', 'assets/night.jpg');
+        this.load.image('ciel', 'assets/ciel.jpg');
+        this.load.image('fondarbres', 'assets/fondarbres.png');
+        this.load.image('fondbuissons', 'assets/fondbuissons.png');
         this.load.image('star', 'assets/star.png');
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
@@ -300,25 +302,41 @@ class TableauTiled extends Tableau{
 
         //on change de ciel, on fait une tileSprite ce qui permet d'avoir une image qui se répète
         
-        this.sky=this.add.tileSprite(
+        this.ciel=this.add.tileSprite(
             0,
             0,
             this.sys.canvas.width,
             this.sys.canvas.height,
-            'night'
+            'ciel'
         );
-        this.sky2=this.add.tileSprite(
+
+        this.ciel.setOrigin(0,0);
+        this.ciel.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
+        //this.sky2.blendMode=Phaser.BlendModes.ADD;
+
+        this.fondarbres=this.add.tileSprite(
             0,
             0,
             this.sys.canvas.width,
             this.sys.canvas.height,
-            'night'
+            'fondarbres'
         );
-        this.sky.setOrigin(0,0);
-        this.sky2.setOrigin(0,0);
-        this.sky.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
-        this.sky2.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
-        this.sky2.blendMode=Phaser.BlendModes.ADD;
+
+        this.fondarbres.setOrigin(0,0);
+        this.fondarbres.setScrollFactor(0);
+        this.fondarbres.alpha=1;
+
+        this.fondbuissons=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'fondbuissons'
+        );
+
+        this.fondbuissons.setOrigin(0,0);
+        this.fondbuissons.setScrollFactor(0);
+        this.fondbuissons.alpha=1;
 
         //----------collisions---------------------
 
@@ -351,8 +369,9 @@ class TableauTiled extends Tableau{
         this.player.setDepth(z--);
         this.devant.setDepth(z--);
         // this.derriere.setDepth(z--);
-        this.sky2.setDepth(z--);
-        this.sky.setDepth(z--);
+        this.fondarbres.setDepth(z--);
+        this.fondbuissons.setDepth(z--);
+        this.ciel.setDepth(z--);
 
     }
 
@@ -416,10 +435,14 @@ class TableauTiled extends Tableau{
      */
     moveParallax(){
         //le ciel se déplace moins vite que la caméra pour donner un effet paralax
-        this.sky.tilePositionX=this.cameras.main.scrollX*0.6;
-        this.sky.tilePositionY=this.cameras.main.scrollY*0.6;
-        this.sky2.tilePositionX=this.cameras.main.scrollX*0.7+100;
-        this.sky2.tilePositionY=this.cameras.main.scrollY*0.7+100;
+        this.ciel.tilePositionX=this.cameras.main.scrollX*0.6;
+        this.ciel.tilePositionY=this.cameras.main.scrollY*0.6;
+
+        this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
+        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
+
+        this.fondarbres.tilePositionX=this.cameras.main.scrollX*0.7;
+        this.fondarbres.tilePositionY=this.cameras.main.scrollY*1;
     }
 
 
