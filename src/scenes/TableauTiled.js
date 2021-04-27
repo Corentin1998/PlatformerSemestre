@@ -196,7 +196,7 @@ class TableauTiled extends Tableau{
                     frame: [
                         'bulle', //pour afficher aussi des étoiles
                     ],
-                    frequency:400,
+                    frequency:500,
                     lifespan: 1000,
                     quantity:1,
                     x:{min:-32,max:32},

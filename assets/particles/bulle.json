@@ -4,20 +4,20 @@
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 50,
-        "h": 50
+        "w": 35,
+        "h": 35
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 50,
-        "h": 50
+        "w": 35,
+        "h": 35
       },
       "sourceSize": {
-        "w": 50,
-        "h": 50
+        "w": 35,
+        "h": 35
       },
       "pivot": {
         "x": 0.5,
@@ -31,8 +31,8 @@
     "image": "bulle.png",
     "format": "RGBA8888",
     "size": {
-      "w": 50,
-      "h": 50
+      "w": 35,
+      "h": 35
     },
     "scale": 1
   }
