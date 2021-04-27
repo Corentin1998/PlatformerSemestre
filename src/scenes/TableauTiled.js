@@ -133,7 +133,7 @@ class TableauTiled extends Tableau{
                     quantity:2,
                     x:{min:-32,max:32},
                     y:{min:-12,max:52},
-                    tint:[  0xC11A05,0x883333,0xBB5500,0xFF7F27 ],
+                    tint:[  0x320701,0x883333,0x994500,0x1a0a00 ],
                     rotate: {min:-10,max:10},
                     speedX: { min: -10, max: 10 },
                     speedY: { min: -20, max: -30 },
