@@ -21,15 +21,34 @@ class TableauTiled extends Tableau{
         this.load.image('ciel', 'assets/ciel.jpg');
         this.load.image('fondarbres', 'assets/fondarbres.png');
         this.load.image('fondbuissons', 'assets/fondbuissons.png');
+        this.load.image('fonddecor', 'assets/fonddecor.png');
         this.load.image('star', 'assets/star.png');
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
         //on y trouve notre étoiles et une tête de mort
         this.load.atlas('particles', 'assets/particles/particles.png', 'assets/particles/particles.json');
         this.load.atlas('bulle', 'assets/particles/bulle.png', 'assets/particles/bulle.json');
+
+        //musique
+        this.load.audio('music', 'assets/sounds/music.mp3');
     }
     create() {
         super.create();
+        //musique
+        this.music = this.sound.add('music');
+
+        var musicConfig = {
+            mute: false,
+            volume: 0.1,
+            rate : 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay:0,
+        }
+        this.music.play(musicConfig);
+
+
         //on en aura besoin...
         let ici=this;
 
@@ -338,6 +357,18 @@ class TableauTiled extends Tableau{
         this.fondbuissons.setScrollFactor(0);
         this.fondbuissons.alpha=1;
 
+        this.fonddecor=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'fonddecor'
+        );
+
+        this.fonddecor.setOrigin(0,0);
+        this.fonddecor.setScrollFactor(0);
+        this.fonddecor.alpha=1;
+
         //----------collisions---------------------
 
         //quoi collide avec quoi?
@@ -371,6 +402,7 @@ class TableauTiled extends Tableau{
         // this.derriere.setDepth(z--);
         this.fondarbres.setDepth(z--);
         this.fondbuissons.setDepth(z--);
+        this.fonddecor.setDepth(z--);
         this.ciel.setDepth(z--);
 
     }
@@ -435,8 +467,11 @@ class TableauTiled extends Tableau{
      */
     moveParallax(){
         //le ciel se déplace moins vite que la caméra pour donner un effet paralax
-        this.ciel.tilePositionX=this.cameras.main.scrollX*0.6;
+        this.ciel.tilePositionX=this.cameras.main.scrollX*0.3;
         this.ciel.tilePositionY=this.cameras.main.scrollY*0.6;
+
+        this.fonddecor.tilePositionX=this.cameras.main.scrollX*0.3-200;
+        this.fonddecor.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
         this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
