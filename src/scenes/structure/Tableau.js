@@ -95,23 +95,13 @@ class Tableau extends Phaser.Scene{
     {
         player.setVelocityY(-650);
     }
-    /**
-     * Aïeee ça fait mal
-     * @param player
-     * @param lave
-     */
 
     SpeedDown (player, boue)
     {
-        
         player.setVelocityX(200);
+        player.setVelocityY(-300);
 
     }
-    /**
-     * Aïeee ça fait mal
-     * @param player
-     * @param lave
-     */
 
      ramasserEtoile (player, star)
      {

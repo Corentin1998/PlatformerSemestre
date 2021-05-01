@@ -373,11 +373,13 @@ class TableauTiled extends Tableau{
 
         //quoi collide avec quoi?
         this.physics.add.collider(this.player, this.solides);
+        this.physics.add.collider(this.player, this.boue);
         this.physics.add.collider(this.stars, this.solides);
         //si le joueur touche une étoile dans le groupe...
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
         //quand on touche la boue/eau, on meurt
         this.physics.add.collider(this.player, this.champignon,this.Bounding,null,this);
+        this.physics.add.collider(this.player, this.boue,this.SpeedDown,null,this);
         this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
         //--------- Z order -----------------------
