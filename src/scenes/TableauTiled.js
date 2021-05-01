@@ -35,6 +35,7 @@ class TableauTiled extends Tableau{
     create() {
         super.create();
         //musique
+        this.game.sound.stopAll();
         this.music = this.sound.add('music');
 
         var musicConfig = {
@@ -43,7 +44,7 @@ class TableauTiled extends Tableau{
             rate : 1,
             detune: 0,
             seek: 0,
-            loop: false,
+            loop: true,
             delay:0,
         }
         this.music.play(musicConfig);
