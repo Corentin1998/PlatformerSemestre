@@ -40,7 +40,7 @@ class TableauTiled extends Tableau{
 
         var musicConfig = {
             mute: false,
-            volume: 0.1,
+            volume: 0,
             rate : 1,
             detune: 0,
             seek: 0,

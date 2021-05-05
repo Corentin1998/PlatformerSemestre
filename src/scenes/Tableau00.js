@@ -1,4 +1,4 @@
-class Tableau00 extends Tableau{
+class Tableau00 extends /*Phaser.scene*/Tableau{
 
     preload() {
         super.preload();
@@ -28,4 +28,3 @@ class Tableau00 extends Tableau{
     }
 
 }
-
