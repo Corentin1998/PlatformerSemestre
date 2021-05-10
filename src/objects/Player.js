@@ -83,9 +83,4 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.shootTourbillon();
         }
     }
-
-    shootTourbillon(){
-        var tourbillon = new Tourbillon(this);
-
-    }
 }
