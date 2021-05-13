@@ -12,9 +12,9 @@ class TableauTiled extends Tableau{
         super.preload();
         // ------pour TILED-------------
         // nos images
-        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV4.png');
+        this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV5.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV5.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV6.json');
 
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
@@ -40,7 +40,7 @@ class TableauTiled extends Tableau{
 
         var musicConfig = {
             mute: false,
-            volume: 0,
+            volume: 0.1,
             rate : 1,
             detune: 0,
             seek: 0,
@@ -58,7 +58,7 @@ class TableauTiled extends Tableau{
         //notre map
         this.map = this.make.tilemap({ key: 'map' });
         //nos images qui vont avec la map
-        this.tileset = this.map.addTilesetImage('tableauTiledTilesetV4', 'tiles');
+        this.tileset = this.map.addTilesetImage('tableauTiledTilesetV5', 'tiles');
 
         //on agrandit le champ de la caméra du coup
         let largeurDuTableau=this.map.widthInPixels;
@@ -473,7 +473,7 @@ class TableauTiled extends Tableau{
         this.ciel.tilePositionX=this.cameras.main.scrollX*0.3;
         this.ciel.tilePositionY=this.cameras.main.scrollY*0.6;
 
-        this.fonddecor.tilePositionX=this.cameras.main.scrollX*0.3-200;
+        this.fonddecor.tilePositionX=this.cameras.main.scrollX*0.3;
         this.fonddecor.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
