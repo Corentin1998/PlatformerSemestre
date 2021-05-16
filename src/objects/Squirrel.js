@@ -7,13 +7,15 @@ class Squirrel extends ObjetEnnemi{
      */
     constructor(scene, x, y) {
         super(scene, x, y, "squirrel");
-        this.body.allowGravity=false;
-        this.setDisplaySize(70,70);
+        this.body.allowGravity=true;
+        this.setDisplaySize(62,82);
         //on réduit un peu la zone de hit
-        this.setBodySize(this.body.width-20,this.body.height-10);
+        this.setBodySize(this.body.width,this.body.height);
         this.setOffset(11, 0);
         this.setDepth(10);
         //définir les propriété que l'on va utiliser dans notre animation
+
+
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('squirrel', { start: 0, end: 8 }),
@@ -52,7 +54,7 @@ class Squirrel extends ObjetEnnemi{
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet
-        scene.tweens.add({
+        /*scene.tweens.add({
                 targets:this,
                 duration:200,
                 delay:Math.random()*1000,
@@ -64,11 +66,10 @@ class Squirrel extends ObjetEnnemi{
                 onComplete: function () {
                     me.start();
                 }
-            })
-
+            })*/
     }
 
-    start(){
+    /*start(){
         this.scene.tweens.add({
             targets: this,
             y: {
@@ -81,6 +82,5 @@ class Squirrel extends ObjetEnnemi{
                 flipX:true,
             }
         });
-    }
-
+    }*/
 }
