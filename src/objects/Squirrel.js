@@ -7,18 +7,32 @@ class Squirrel extends ObjetEnnemi{
      */
     constructor(scene, x, y) {
         super(scene, x, y, "squirrel");
-        //pas de gravité
         this.body.allowGravity=false;
-
-        //gestion de la taille
         this.setDisplaySize(70,70);
-
         //on réduit un peu la zone de hit
         this.setBodySize(this.body.width-20,this.body.height-10);
         this.setOffset(11, 0);
         this.setDepth(10);
-
         //définir les propriété que l'on va utiliser dans notre animation
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('squirrel', { start: 0, end: 8 }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('squirrel', { start: 10, end: 18 }),
+            frameRate: 15,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'squirrel', frame: 9 } ],
+            frameRate: 20
+        });
 
         // X
         this.originalX=x;
