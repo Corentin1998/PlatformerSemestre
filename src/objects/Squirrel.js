@@ -33,14 +33,14 @@ class Squirrel extends ObjetEnnemi{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('squirrel', { start: 10, end: 18 }),
+            frames: this.anims.generateFrameNumbers('squirrel', { start: 1, end: 9 }),
             frameRate: 9,
             repeat: -1
         });
         
         this.anims.create({
             key: 'turn',
-            frames: [ { key: 'squirrel', frame: 9 } ],
+            frames: [ { key: 'squirrel', frame: 0 } ],
             frameRate: 20
         });
  
