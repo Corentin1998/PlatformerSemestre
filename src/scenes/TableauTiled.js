@@ -135,7 +135,6 @@ class TableauTiled extends Tableau{
         });
         
         
-        
         //new Squirrel(this,400,100);
 
         //--------effet sur la boue------------------------
