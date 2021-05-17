@@ -28,11 +28,6 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 62, frameHeight: 82  }
         );
 
-        this.load.image("tourbillon", "assets/tourbillon.png");
-        /*this.load.spritesheet('stance',
-            'assets/player_stance.png',
-            { frameWidth: 40, frameHeight: 64 }
-        );*/
     }
     create(){
         Tableau.current=this;
@@ -50,7 +45,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player(this,50,600);
+        this.player=new Player(this,0,0);
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;
@@ -105,7 +100,6 @@ class Tableau extends Phaser.Scene{
     {
         player.setVelocityX(200);
         player.setVelocityY(-300);
-
     }
 
      ramasserEtoile (player, star)

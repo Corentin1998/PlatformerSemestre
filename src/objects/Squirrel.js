@@ -7,26 +7,34 @@ class Squirrel extends ObjetEnnemi{
      */
     constructor(scene, x, y) {
         super(scene, x, y, "squirrel");
-        this.body.allowGravity=true;
+        //super(scene, x, y, "monster-fly");
+        this.body.allowGravity=false;
+        scene.physics.add.existing(this)
         this.setDisplaySize(62,82);
+        this.setVelocityX(50);
         //on réduit un peu la zone de hit
-        this.setBodySize(this.body.width,this.body.height);
-        this.setOffset(11, 0);
-        this.setDepth(10);
+        //this.setBodySize(this.body.width,this.body.height);
+        //this.setOffset(11, 0);
+        //this.setDepth(10);
         //définir les propriété que l'on va utiliser dans notre animation
 
+
+        /*this.load.spritesheet('squirrel',
+        'assets/squirrel.png',
+            { frameWidth: 62, frameHeight: 82  }
+        );
 
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('squirrel', { start: 0, end: 8 }),
             frameRate: 15,
             repeat: -1
-        });
+        });*/
 
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('squirrel', { start: 10, end: 18 }),
-            frameRate: 15,
+            frameRate: 12,
             repeat: -1
         });
         
@@ -35,22 +43,25 @@ class Squirrel extends ObjetEnnemi{
             frames: [ { key: 'squirrel', frame: 9 } ],
             frameRate: 20
         });
-
+ 
+            
         // X
-        this.originalX=x;
-        this.minX=x-200;
-        this.maxX=x+200;
+        //this.originalX=x;
+        //this.minX=x-200;
+        //this.maxX=x+200;
 
         // Y
-        this.originalY=y;
-        this.minY=y-20;
-        this.maxY=height-64;
+        //this.originalY=y;
+        //this.minY=y-20;
+        //this.maxY=height-64;
 
         // on applique les propriété du début de l'animation
-        this.x=this.minX;
-        this.y=this.minY;
-        this.alpha=0;
+        //this.x=this.minX;
+        //this.y=this.minY;
+        //this.alpha=0;
         let me=this;
+
+        this.anims.play('right', true);
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet

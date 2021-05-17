@@ -127,15 +127,21 @@ class TableauTiled extends Tableau{
 
         //----------Squirrel (objets tiled) ---------------------
 
-        this.squirrelObjects = this.map.getObjectLayer('squirrel')['objects'];
+        ici.squirrelObjects = this.map.getObjectLayer('squirrel')['objects'];
         // On crée des montres volants pour chaque objet rencontré
-        this.squirrelObjects.forEach(monsterObject => {
-            let monster=new Squirrel(montableau,monsterObject.x,monsterObject.y);
+        ici.squirrelObjects.forEach(squirrelObject => {
+            console.log(squirrelObject)
+
+            let monster=new Squirrel(montableau,squirrelObject.x,squirrelObject.y);
+            //let monster=montableau.create()
+            //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
+            //monster.setDisplaySize(32,32);
             monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides)
         });
         
         
-        //new Squirrel(this,400,100);
+        //new Squirrel(this,400,700);
 
         //--------effet sur la boue------------------------
 
@@ -385,7 +391,6 @@ class TableauTiled extends Tableau{
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.player, this.boue);
         this.physics.add.collider(this.stars, this.solides);
-        this.physics.add.collider(this.squirrel, this.solides);
         //si le joueur touche une étoile dans le groupe...
         this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
         //quand on touche la boue/eau, on meurt
