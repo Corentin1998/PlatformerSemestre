@@ -79,8 +79,5 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }
 
-        if (Phaser.Input.Keyboard.JustDown("W")){
-            this.shootTourbillon();
-        }
     }
 }
