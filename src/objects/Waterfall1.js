@@ -1,4 +1,4 @@
-class Squirrel extends ObjetEnnemi{
+class Waterfall1 extends ObjetEnnemi{
     /**
      *
      * @param {Tableau} scene
@@ -6,12 +6,11 @@ class Squirrel extends ObjetEnnemi{
      * @param y
      */
     constructor(scene, x, y) {
-        super(scene, x, y, "squirrel");
+        super(scene, x, y, "waterfall1");
         //super(scene, x, y, "monster-fly");
-        this.body.allowGravity=true;
+        this.body.allowGravity=false;
         scene.physics.add.existing(this)
-        this.setDisplaySize(62,82);
-        this.setVelocityX(50);
+        this.setDisplaySize(64,64);
         //on réduit un peu la zone de hit
         //this.setBodySize(this.body.width,this.body.height);
         //this.setOffset(11, 0);
@@ -33,8 +32,8 @@ class Squirrel extends ObjetEnnemi{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('squirrel', { start: 1, end: 9 }),
-            frameRate: 9,
+            frames: this.anims.generateFrameNumbers('waterfall1', { start: 0, end: 27 }),
+            frameRate: 22,
             repeat: -1
         });
         

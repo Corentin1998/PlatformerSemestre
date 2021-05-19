@@ -28,6 +28,21 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 62, frameHeight: 78  }
         );
 
+        this.load.spritesheet('raton',
+        'assets/raton.png',
+            { frameWidth: 52, frameHeight: 75  }
+        );
+
+        this.load.spritesheet('waterfall1',
+        'assets/waterfall1.png',
+            { frameWidth: 64, frameHeight: 64  }
+        );
+
+        this.load.spritesheet('waterfall2',
+        'assets/waterfall2.png',
+            { frameWidth: 64, frameHeight: 64  }
+        );
+
     }
     create(){
         Tableau.current=this;
@@ -45,7 +60,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player(this,50,870);
+        this.player=new Player(this,50,700);
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;
