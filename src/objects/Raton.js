@@ -33,7 +33,7 @@ class Raton extends ObjetEnnemi{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('raton', { start: 0, end: 1 }),
+            frames: this.anims.generateFrameNumbers('raton', { start: 0, end: 3 }),
             frameRate: 9,
             repeat: -1
         });

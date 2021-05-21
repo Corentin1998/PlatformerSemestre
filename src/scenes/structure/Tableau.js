@@ -108,7 +108,7 @@ class Tableau extends Phaser.Scene{
 
     Bounding (player, champignon)
     {
-        player.setVelocityY(-750);
+        player.setVelocityY(-650);
     }
 
     SpeedDown (player, boue)
