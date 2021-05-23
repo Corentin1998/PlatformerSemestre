@@ -19,9 +19,10 @@ class TableauTiled extends Tableau{
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('ciel', 'assets/ciel.jpg');
-        this.load.image('fondarbres', 'assets/fondarbres.png');
+        this.load.image('fondarbres2', 'assets/fondarbres2.png');
         this.load.image('fondbuissons', 'assets/fondbuissons.png');
         this.load.image('fonddecor', 'assets/fonddecor.png');
+        this.load.image('premierplan', 'assets/premierplan.png');
         this.load.image('star', 'assets/star.png');
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
@@ -387,17 +388,28 @@ class TableauTiled extends Tableau{
         this.ciel.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
         //this.sky2.blendMode=Phaser.BlendModes.ADD;
 
-        this.fondarbres=this.add.tileSprite(
+        this.premierplan=this.add.tileSprite(
             0,
             0,
             this.sys.canvas.width,
             this.sys.canvas.height,
-            'fondarbres'
+            'premierplan'
         );
 
-        this.fondarbres.setOrigin(0,0);
-        this.fondarbres.setScrollFactor(0);
-        this.fondarbres.alpha=1;
+        this.premierplan.setOrigin(0,0);
+        this.premierplan.setScrollFactor(0);
+
+        this.fondarbres2=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'fondarbres2'
+        );
+
+        this.fondarbres2.setOrigin(0,0);
+        this.fondarbres2.setScrollFactor(0);
+        this.fondarbres2.alpha=1;
 
         this.fondbuissons=this.add.tileSprite(
             0,
@@ -456,7 +468,8 @@ class TableauTiled extends Tableau{
         this.player.setDepth(z--);
         this.devant.setDepth(z--);
         // this.derriere.setDepth(z--);
-        this.fondarbres.setDepth(z--);
+        this.premierplan.setDepth(z--);
+        this.fondarbres2.setDepth(z--);
         this.fondbuissons.setDepth(z--);
         this.fonddecor.setDepth(z--);
         this.ciel.setDepth(z--);
@@ -530,10 +543,13 @@ class TableauTiled extends Tableau{
         this.fonddecor.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
-        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
+        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1-200;
 
-        this.fondarbres.tilePositionX=this.cameras.main.scrollX*0.7;
-        this.fondarbres.tilePositionY=this.cameras.main.scrollY*1;
+        this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
+        this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1-200;
+
+        this.premierplan.tilePositionX=this.cameras.main.scrollX*1;
+        this.premierplan.tilePositionY=this.cameras.main.scrollY*1+500;
     }
 
 
