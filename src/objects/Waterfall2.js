@@ -32,8 +32,8 @@ class Waterfall2 extends ObjetEnnemi{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('waterfall2', { start: 0, end: 27 }),
-            frameRate: 22,
+            frames: this.anims.generateFrameNumbers('waterfall2', { start: 0, end: 31 }),
+            frameRate: 31,
             repeat: -1
         });
         
