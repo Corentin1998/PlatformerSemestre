@@ -1,4 +1,4 @@
-class Waterfall1 extends ObjetEnnemi{
+class Waterfall1 extends ObjetPhysique{
     /**
      *
      * @param {Tableau} scene
@@ -6,7 +6,7 @@ class Waterfall1 extends ObjetEnnemi{
      * @param y
      */
     constructor(scene, x, y) {
-        super(scene, x, y, "waterfall1");
+        super(scene, x+32, y-15, "waterfall1");
         //super(scene, x, y, "monster-fly");
         this.body.allowGravity=false;
         scene.physics.add.existing(this)

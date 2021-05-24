@@ -548,7 +548,7 @@ class TableauTiled extends Tableau{
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
         this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1-200;
 
-        this.premierplan.tilePositionX=this.cameras.main.scrollX*1;
+        this.premierplan.tilePositionX=this.cameras.main.scrollX*2;
         this.premierplan.tilePositionY=this.cameras.main.scrollY*1+500;
     }
 
