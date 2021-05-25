@@ -130,7 +130,31 @@
          "draworder":"topdown",
          "id":2,
          "name":"stars",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":20,
+                 "height":64,
+                 "id":168,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2880,
+                 "y":256
+                }, 
+                {
+                 "gid":20,
+                 "height":64,
+                 "id":169,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":320,
+                 "y":832
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -662,7 +686,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":168,
+ "nextobjectid":170,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",

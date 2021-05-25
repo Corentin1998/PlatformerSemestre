@@ -21,6 +21,7 @@ class TableauTiled extends Tableau{
         this.load.image('ciel', 'assets/ciel.jpg');
         this.load.image('fondarbres2', 'assets/fondarbres2.png');
         this.load.image('fondbuissons', 'assets/fondbuissons.png');
+        this.load.image('planbuissonshaut', 'assets/planbuissonshaut.png');
         this.load.image('fonddecor', 'assets/fonddecor.png');
         this.load.image('premierplan', 'assets/premierplan.png');
         this.load.image('star', 'assets/star.png');
@@ -102,9 +103,9 @@ class TableauTiled extends Tableau{
 
         // c'est un peu plus compliqué, mais ça permet de maîtriser plus de choses...
         this.stars = this.physics.add.group({
-            allowGravity: true,
+            allowGravity: false,
             immovable: false,
-            bounceY:1
+            bounceY:0
         });
         this.starsObjects = this.map.getObjectLayer('stars')['objects'];
         // // On crée des étoiles pour chaque objet rencontré
@@ -412,6 +413,17 @@ class TableauTiled extends Tableau{
         this.premierplan.setOrigin(0,0);
         this.premierplan.setScrollFactor(0);
 
+        this.planbuissonshaut=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'planbuissonshaut'
+        );
+
+        this.planbuissonshaut.setOrigin(0,0);
+        this.planbuissonshaut.setScrollFactor(0);
+
         this.fondarbres2=this.add.tileSprite(
             0,
             0,
@@ -472,6 +484,7 @@ class TableauTiled extends Tableau{
         starsFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
+        this.planbuissonshaut.setDepth(z--);
         this.solides.setDepth(z--);
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
@@ -558,8 +571,14 @@ class TableauTiled extends Tableau{
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
         this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
 
+        this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*0.5;
+        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
+
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
         this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
+
+        this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*1;
+        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
 
         this.premierplan.tilePositionX=this.cameras.main.scrollX*2;
         this.premierplan.tilePositionY=this.cameras.main.scrollY*1;
