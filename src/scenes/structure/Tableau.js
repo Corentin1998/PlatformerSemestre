@@ -20,7 +20,7 @@ class Tableau extends Phaser.Scene{
         this.load.image('spike', 'assets/spike.png');
         this.load.spritesheet('player',
             'assets/player.png',
-            { frameWidth: 40, frameHeight: 64  }
+            { frameWidth: 42, frameHeight: 64  }
         );
 
         this.load.spritesheet('squirrel',
@@ -108,7 +108,7 @@ class Tableau extends Phaser.Scene{
 
     Bounding (player, champignon)
     {
-        player.setVelocityY(-650);
+        player.setVelocityY(-720);
     }
 
     SpeedDown (player, boue)

@@ -7,11 +7,12 @@ class Raton extends ObjetEnnemi{
      */
     constructor(scene, x, y) {
         super(scene, x, y, "raton");
-        //super(scene, x, y, "monster-fly");
         this.body.allowGravity=true;
         scene.physics.add.existing(this)
-        this.setDisplaySize(62,82);
+        this.setDisplaySize(52,75);
         this.setVelocityX(50);
+        this.setCollideWorldBounds(true);
+        this.setBounceX(1);
         //on réduit un peu la zone de hit
         //this.setBodySize(this.body.width,this.body.height);
         //this.setOffset(11, 0);
@@ -46,14 +47,14 @@ class Raton extends ObjetEnnemi{
  
             
         // X
-        //this.originalX=x;
-        //this.minX=x-200;
-        //this.maxX=x+200;
+        this.originalX=x;
+        this.minX=x-200;
+        this.maxX=x+200;
 
         // Y
-        //this.originalY=y;
-        //this.minY=y-20;
-        //this.maxY=height-64;
+        this.originalY=y;
+        this.minY=y;
+        this.maxY=y;
 
         // on applique les propriété du début de l'animation
         //this.x=this.minX;
@@ -65,7 +66,7 @@ class Raton extends ObjetEnnemi{
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet
-        /*scene.tweens.add({
+        scene.tweens.add({
                 targets:this,
                 duration:200,
                 delay:Math.random()*1000,
@@ -74,10 +75,10 @@ class Raton extends ObjetEnnemi{
                     from:0,
                     to:1,
                 },
-                onComplete: function () {
-                    me.start();
-                }
-            })*/
+                // onComplete: function () {
+                //     me.start();
+                // }
+            })
     }
 
     /*start(){

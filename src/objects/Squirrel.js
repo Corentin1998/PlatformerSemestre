@@ -7,13 +7,12 @@ class Squirrel extends ObjetEnnemi{
      */
     constructor(scene, x, y) {
         super(scene, x, y+26, "squirrel");
-        //super(scene, x, y, "monster-fly");
         this.body.allowGravity=true;
         scene.physics.add.existing(this)
-        this.setDisplaySize(62,82);
+        this.setDisplaySize(62,78);
         this.setVelocityX(50);
         this.setCollideWorldBounds(true);
-        this.setBounce(1);
+        this.setBounceX(1);
 
 
         //on réduit un peu la zone de hit

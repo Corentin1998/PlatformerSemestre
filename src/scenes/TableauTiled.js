@@ -458,6 +458,7 @@ class TableauTiled extends Tableau{
         this.stars.setDepth(z--);
         starsFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
+        this.premierplan.setDepth(z--);
         this.solides.setDepth(z--);
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
@@ -468,7 +469,6 @@ class TableauTiled extends Tableau{
         this.player.setDepth(z--);
         this.devant.setDepth(z--);
         // this.derriere.setDepth(z--);
-        this.premierplan.setDepth(z--);
         this.fondarbres2.setDepth(z--);
         this.fondbuissons.setDepth(z--);
         this.fonddecor.setDepth(z--);
@@ -543,13 +543,13 @@ class TableauTiled extends Tableau{
         this.fonddecor.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
-        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1-200;
+        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
-        this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1-200;
+        this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
 
         this.premierplan.tilePositionX=this.cameras.main.scrollX*2;
-        this.premierplan.tilePositionY=this.cameras.main.scrollY*1+500;
+        this.premierplan.tilePositionY=this.cameras.main.scrollY*1;
     }
 
 
