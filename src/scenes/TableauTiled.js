@@ -180,6 +180,19 @@ class TableauTiled extends Tableau{
             this.physics.add.collider(monster, this.solides)
         });
         
+        ici.plant1Objects = this.map.getObjectLayer('plant1')['objects'];
+        // On crée des montres volants pour chaque objet rencontré
+        ici.plant1Objects.forEach(plant1Object => {
+            console.log(plant1Object)
+
+            let monster=new Plant1(montableau,plant1Object.x,plant1Object.y);
+            //let monster=montableau.create()
+            //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
+            //monster.setDisplaySize(32,32);
+            monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides)
+        });
+
         //new Squirrel(this,400,700);
 
         //--------effet sur la boue------------------------
