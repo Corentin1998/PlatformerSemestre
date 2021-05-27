@@ -22,7 +22,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('player', { start: 9, end: 16 }),
-            frameRate: 10,
+            frameRate: 15,
             repeat: -1
         });
         
@@ -73,12 +73,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         switch (true){
             case this._directionX<0:
                 this.sens=-1;
-                this.setVelocityX(-500);
+                this.setVelocityX(-220);
                 this.anims.play('left', true);
                 break;
             case this._directionX>0:
                 this.sens=1;
-                this.setVelocityX(500);
+                this.setVelocityX(220);
                 this.anims.play('right', true);
                 break;
             default:

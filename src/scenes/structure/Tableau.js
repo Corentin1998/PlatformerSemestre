@@ -127,10 +127,10 @@ class Tableau extends Phaser.Scene{
         player.setVelocityY(-300);
     }
 
-     ramasserEtoile (player, star)
+     ramasserEtoile (player, plume)
      {
-         star.disableBody(true, true);
-         star.emit("disabled");
+        plume.disableBody(true, true);
+         plume.emit("disabled");
          ui.gagne();
  
          //va lister tous les objets de la scène pour trouver les étoies et vérifier si elles sont actives

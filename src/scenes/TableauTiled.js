@@ -109,7 +109,7 @@ class TableauTiled extends Tableau{
         this.platforms.create(500, 700, 'platform')
 
         this.physics.add.collider(this.player, this.platforms);
-        this.physics.add.collider(this.platforms, this.stars);
+        this.physics.add.collider(this.platforms, this.plumes);
 
         this.fondplatforms = this.physics.add.staticGroup();
         this.fondplatforms.create(500, 667, 'fondplatform')
@@ -117,6 +117,7 @@ class TableauTiled extends Tableau{
 
         //----------les étoiles (objets) ---------------------
 
+        
         // c'est un peu plus compliqué, mais ça permet de maîtriser plus de choses...
         this.plumes = this.physics.add.group({
             allowGravity: false,
@@ -231,7 +232,7 @@ class TableauTiled extends Tableau{
                 //on va créer des particules
                 let props={
                     frame: [
-                        'plume', //pour afficher aussi des étoiles
+                        'star', //pour afficher aussi des étoiles
                         'death-white'
                     ],
                     frequency:200,
@@ -344,25 +345,25 @@ class TableauTiled extends Tableau{
         })
         //--------allez on se fait un peu la même en plus simple mais avec les étoiles----------
 
-        // let plumesFxContainer=ici.add.container();
-        // this.plumes.children.iterate(function(etoile) {
-        //     let particles=ici.add.particles("particles","plume");
-        //     let emmiter=particles.createEmitter({
-        //         tint:[  0xFF8800,0xFFFF00,0x88FF00,0x8800FF ],
-        //         rotate: {min:0,max:360},
+        let plumesFxContainer=ici.add.container();
+        this.plumes.children.iterate(function(etoile) {
+            let particles=ici.add.particles("particles","plume");
+            let emmiter=particles.createEmitter({
+                tint:[  0x000000,0x0000FF,0x00BFFF,0x1E90FF/*0xFF8800,0xFFFF00,0x88FF00,0x8800FF*/ ],
+                rotate: {min:0,max:360},
 
-        //         scale: {start: 0.1, end: 0.1},
-        //         alpha: { start: 1, end: 0 },
-        //         blendMode: Phaser.BlendModes.ADD,
-        //         lifespan : 2000,
-        //         speed:40
-        //     });
-        //     etoile.on("disabled",function(){
-        //         emmiter.on=false;
-        //     })
-        //     emmiter.startFollow(etoile);
-        //     plumesFxContainer.add(particles);
-        // });
+                scale: {start: 0.1, end: 0.5},
+                alpha: { start: 1, end: 0 },
+                blendMode: Phaser.BlendModes.ADD,
+                lifespan : 2000,
+                speed:40
+            });
+            etoile.on("disabled",function(){
+                emmiter.on=false;
+            })
+            emmiter.startFollow(etoile);
+            plumesFxContainer.add(particles);
+        });
 
 
 
@@ -521,7 +522,7 @@ class TableauTiled extends Tableau{
         this.blood.setDepth(z--);
         monstersContainer.setDepth(z--);
         this.plumes.setDepth(z--);
-        //plumesFxContainer.setDepth(z--);
+        plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
         this.planbuissonshaut.setDepth(z--);
