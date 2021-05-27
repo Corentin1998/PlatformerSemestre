@@ -22,6 +22,7 @@ class TableauTiled extends Tableau{
         this.load.image('fondarbres2', 'assets/fondarbres2.png');
         this.load.image('fondbuissons', 'assets/fondbuissons.png');
         this.load.image('planbuissonshaut', 'assets/planbuissonshaut.png');
+        this.load.image('planbuissonshaut2', 'assets/planbuissonshaut2.png');
         this.load.image('fonddecor', 'assets/fonddecor.png');
         this.load.image('premierplan', 'assets/premierplan.png');
         this.load.image('star', 'assets/star.png');
@@ -424,6 +425,18 @@ class TableauTiled extends Tableau{
         this.planbuissonshaut.setOrigin(0,0);
         this.planbuissonshaut.setScrollFactor(0);
 
+        this.planbuissonshaut2=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'planbuissonshaut2'
+        );
+
+        this.planbuissonshaut2.setOrigin(0,0);
+        this.planbuissonshaut2.setScrollFactor(0);
+
+
         this.fondarbres2=this.add.tileSprite(
             0,
             0,
@@ -485,6 +498,7 @@ class TableauTiled extends Tableau{
         this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
         this.planbuissonshaut.setDepth(z--);
+        this.planbuissonshaut2.setDepth(z--);    
         this.solides.setDepth(z--);
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
@@ -493,6 +507,7 @@ class TableauTiled extends Tableau{
         this.eau.setDepth(z--);
         this.devant.setDepth(z--);
         this.player.setDepth(z--);
+        this.planbuissonshaut2.setDepth(z--); 
         this.devant.setDepth(z--);
         // this.derriere.setDepth(z--);
         this.fondarbres2.setDepth(z--);
@@ -576,6 +591,9 @@ class TableauTiled extends Tableau{
 
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
         this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
+
+        this.planbuissonshaut2.tilePositionX=this.cameras.main.scrollX*0.8;
+        this.planbuissonshaut2.tilePositionY=this.cameras.main.scrollY*1;
 
         this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*1;
         this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
