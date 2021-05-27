@@ -37,7 +37,7 @@
  <objectgroup id="12" name="raton">
   <object id="102" gid="1073741858" x="659.333" y="780.667" width="64" height="64" rotation="180"/>
  </objectgroup>
- <objectgroup id="2" name="stars">
+ <objectgroup id="2" name="plumes">
   <object id="168" gid="20" x="2880" y="256" width="64" height="64"/>
   <object id="169" gid="20" x="320" y="832" width="64" height="64"/>
  </objectgroup>

@@ -129,7 +129,7 @@
         {
          "draworder":"topdown",
          "id":2,
-         "name":"stars",
+         "name":"plumes",
          "objects":[
                 {
                  "gid":20,
@@ -686,7 +686,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":170,
+ "nextobjectid":171,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
