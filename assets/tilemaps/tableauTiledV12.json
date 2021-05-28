@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"tableauTiledV11.json"
+         "target":"tableauTiledV12.json"
         }
     },
  "height":15,
@@ -140,8 +140,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":992.051,
-                 "y":768.066
+                 "x":1024.051,
+                 "y":767.566
                 }, 
                 {
                  "gid":20,
@@ -153,7 +153,7 @@
                  "visible":true,
                  "width":64,
                  "x":3602.83,
-                 "y":785.333
+                 "y":769.333
                 }, 
                 {
                  "gid":20,
@@ -164,8 +164,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":2304,
-                 "y":576
+                 "x":2302,
+                 "y":147.5
                 }],
          "opacity":1,
          "type":"objectgroup",

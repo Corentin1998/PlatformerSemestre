@@ -14,10 +14,11 @@ class TableauTiled extends Tableau{
         // nos images
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV10.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV11.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV12.json');
 
         // -----et puis aussi-------------
         this.load.image('platform', 'assets/platform.png');
+        this.load.image('platformi', 'assets/platformi.png');
         this.load.image('fondplatform', 'assets/fondplatform.png');
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('ciel', 'assets/ciel.jpg');
@@ -111,8 +112,7 @@ class TableauTiled extends Tableau{
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.platforms, this.plumes);
 
-        // this.platforms.create(2300, 220, 'platform');
-        // this.fondplatforms.create(2300, 197, 'fondplatform')
+        this.platforms.create(255, 770, 'platformi');
 
         // plateforme 1
         this.platforms.create(2700, 600, 'platform');
@@ -519,17 +519,16 @@ class TableauTiled extends Tableau{
         this.fonddecor.setScrollFactor(0);
         this.fonddecor.alpha=1;
 
-        // this.troncnid=this.add.tileSprite(
-        //     0,
-        //     0,
-        //     this.sys.canvas.width,
-        //     this.sys.canvas.height,
-        //     'troncnid'
-        // );
+        this.troncnid=this.add.image(
+             0,
+             0,
 
-        // this.troncnid.setOrigin(0,0);
-        // this.troncnid.setScrollFactor(0);
-        // this.troncnid.alpha=1;
+             'troncnid'
+         );
+
+         this.troncnid.setOrigin(0,0);
+         this.troncnid.setScrollFactor(1);
+         this.troncnid.alpha=1;
 
         //----------collisions---------------------
 
@@ -550,10 +549,10 @@ class TableauTiled extends Tableau{
         let z=1000; //niveau Z qui a chaque fois est décrémenté.
         debug.setDepth(z--);
         this.blood.setDepth(z--);
-        plumesContainer.setDepth(z--);
+        //splumesContainer.setDepth(z--);
         monstersContainer.setDepth(z--);
         // this.plumes.setDepth(z--);
-        plumesFxContainer.setDepth(z--);
+        //plumesFxContainer.setDepth(z--);
         //this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
         this.planbuissonshaut.setDepth(z--);
@@ -566,10 +565,12 @@ class TableauTiled extends Tableau{
         this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
         this.player.setDepth(z--);
+        plumesContainer.setDepth(z--);
         this.fondplatforms.setDepth(z--);
+        plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.planbuissonshaut2.setDepth(z--);
-        //this.troncnid.setDepth(z--);
+        this.troncnid.setDepth(z--);
         // this.derriere.setDepth(z--);
         this.fondarbres2.setDepth(z--);
         this.fondbuissons.setDepth(z--);
