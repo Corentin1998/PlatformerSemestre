@@ -23,6 +23,11 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 42, frameHeight: 64  }
         );
 
+        this.load.spritesheet('stance',
+            'assets/player.png',
+            { frameWidth: 42, frameHeight: 42 }
+        );
+
         this.load.spritesheet('squirrel',
         'assets/squirrel.png',
             { frameWidth: 62, frameHeight: 78  }
@@ -41,6 +46,11 @@ class Tableau extends Phaser.Scene{
         this.load.spritesheet('waterfall2',
         'assets/waterfall2.png',
             { frameWidth: 64, frameHeight: 64  }
+        );
+
+        this.load.spritesheet('plant1',
+        'assets/plant1.png',
+            { frameWidth: 120, frameHeight: 130  }
         );
 
     }
@@ -117,10 +127,10 @@ class Tableau extends Phaser.Scene{
         player.setVelocityY(-300);
     }
 
-     ramasserEtoile (player, star)
+     ramasserEtoile (player, plume)
      {
-         star.disableBody(true, true);
-         star.emit("disabled");
+        plume.disableBody(true, true);
+         plume.emit("disabled");
          ui.gagne();
  
          //va lister tous les objets de la scène pour trouver les étoies et vérifier si elles sont actives

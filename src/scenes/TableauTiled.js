@@ -17,13 +17,18 @@ class TableauTiled extends Tableau{
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV10.json');
 
         // -----et puis aussi-------------
+        this.load.image('platform', 'assets/platform.png');
+        this.load.image('fondplatform', 'assets/fondplatform.png');
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('ciel', 'assets/ciel.jpg');
+        this.load.image('troncnid', 'assets/troncnid.png');
         this.load.image('fondarbres2', 'assets/fondarbres2.png');
         this.load.image('fondbuissons', 'assets/fondbuissons.png');
+        this.load.image('planbuissonshaut', 'assets/planbuissonshaut.png');
+        this.load.image('planbuissonshaut2', 'assets/planbuissonshaut2.png');
         this.load.image('fonddecor', 'assets/fonddecor.png');
         this.load.image('premierplan', 'assets/premierplan.png');
-        this.load.image('star', 'assets/star.png');
+        this.load.image('plume', 'assets/plume.png');
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
         //on y trouve notre étoiles et une tête de mort
@@ -98,20 +103,33 @@ class TableauTiled extends Tableau{
         // 3 Permet d'utiliser l'éditeur de collision de Tiled...mais ne semble pas marcher pas avec le moteur de physique ARCADE, donc oubliez cette option :(
         //this.map.setCollisionFromCollisionGroup(true,true,this.plateformesSimples);
 
+
+        // Plate-formes Phaser
+        this.platforms = this.physics.add.staticGroup();
+        this.platforms.create(500, 700, 'platform')
+
+        this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(this.platforms, this.plumes);
+
+        this.fondplatforms = this.physics.add.staticGroup();
+        this.fondplatforms.create(500, 667, 'fondplatform')
+
+
         //----------les étoiles (objets) ---------------------
 
+        
         // c'est un peu plus compliqué, mais ça permet de maîtriser plus de choses...
-        this.stars = this.physics.add.group({
-            allowGravity: true,
+        this.plumes = this.physics.add.group({
+            allowGravity: false,
             immovable: false,
-            bounceY:1
+            bounceY:0
         });
-        this.starsObjects = this.map.getObjectLayer('stars')['objects'];
+        this.plumesObjects = this.map.getObjectLayer('plumes')['objects'];
         // // On crée des étoiles pour chaque objet rencontré
         
-        this.starsObjects.forEach(starObject => {
+        this.plumesObjects.forEach(plumeObject => {
             // Pour chaque étoile on la positionne pour que ça colle bien car les étoiles ne font pas 64x64
-            let star = this.stars.create(starObject.x+32, starObject.y+32 , 'particles','star');
+            let plume = this.plumes.create(plumeObject.x+32, plumeObject.y+32 , 'particles','plume');
         });
 
         //----------les monstres volants (objets tiled) ---------------------
@@ -180,6 +198,19 @@ class TableauTiled extends Tableau{
             this.physics.add.collider(monster, this.solides)
         });
         
+        ici.plant1Objects = this.map.getObjectLayer('plant1')['objects'];
+        // On crée des montres volants pour chaque objet rencontré
+        ici.plant1Objects.forEach(plant1Object => {
+            console.log(plant1Object)
+
+            let monster=new Plant1(montableau,plant1Object.x,plant1Object.y);
+            //let monster=montableau.create()
+            //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
+            //monster.setDisplaySize(32,32);
+            monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides)
+        });
+
         //new Squirrel(this,400,700);
 
         //--------effet sur la boue------------------------
@@ -314,14 +345,14 @@ class TableauTiled extends Tableau{
         })
         //--------allez on se fait un peu la même en plus simple mais avec les étoiles----------
 
-        let starsFxContainer=ici.add.container();
-        this.stars.children.iterate(function(etoile) {
-            let particles=ici.add.particles("particles","star");
+        let plumesFxContainer=ici.add.container();
+        this.plumes.children.iterate(function(etoile) {
+            let particles=ici.add.particles("particles","plume");
             let emmiter=particles.createEmitter({
-                tint:[  0xFF8800,0xFFFF00,0x88FF00,0x8800FF ],
+                tint:[  0x000000,0x0000FF,0x00BFFF,0x1E90FF/*0xFF8800,0xFFFF00,0x88FF00,0x8800FF*/ ],
                 rotate: {min:0,max:360},
 
-                scale: {start: 0.8, end: 0.5},
+                scale: {start: 0.1, end: 0.5},
                 alpha: { start: 1, end: 0 },
                 blendMode: Phaser.BlendModes.ADD,
                 lifespan : 2000,
@@ -331,7 +362,7 @@ class TableauTiled extends Tableau{
                 emmiter.on=false;
             })
             emmiter.startFollow(etoile);
-            starsFxContainer.add(particles);
+            plumesFxContainer.add(particles);
         });
 
 
@@ -399,6 +430,29 @@ class TableauTiled extends Tableau{
         this.premierplan.setOrigin(0,0);
         this.premierplan.setScrollFactor(0);
 
+        this.planbuissonshaut=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'planbuissonshaut'
+        );
+
+        this.planbuissonshaut.setOrigin(0,0);
+        this.planbuissonshaut.setScrollFactor(0);
+
+        this.planbuissonshaut2=this.add.tileSprite(
+            0,
+            0,
+            this.sys.canvas.width,
+            this.sys.canvas.height,
+            'planbuissonshaut2'
+        );
+
+        this.planbuissonshaut2.setOrigin(0,0);
+        this.planbuissonshaut2.setScrollFactor(0);
+
+
         this.fondarbres2=this.add.tileSprite(
             0,
             0,
@@ -435,14 +489,26 @@ class TableauTiled extends Tableau{
         this.fonddecor.setScrollFactor(0);
         this.fonddecor.alpha=1;
 
+        // this.troncnid=this.add.tileSprite(
+        //     0,
+        //     0,
+        //     this.sys.canvas.width,
+        //     this.sys.canvas.height,
+        //     'troncnid'
+        // );
+
+        // this.troncnid.setOrigin(0,0);
+        // this.troncnid.setScrollFactor(0);
+        // this.troncnid.alpha=1;
+
         //----------collisions---------------------
 
         //quoi collide avec quoi?
         this.physics.add.collider(this.player, this.solides);
         this.physics.add.collider(this.player, this.boue);
-        this.physics.add.collider(this.stars, this.solides);
+        this.physics.add.collider(this.plumes, this.solides);
         //si le joueur touche une étoile dans le groupe...
-        this.physics.add.overlap(this.player, this.stars, this.ramasserEtoile, null, this);
+        this.physics.add.overlap(this.player, this.plumes, this.ramasserEtoile, null, this);
         //quand on touche la boue/eau, on meurt
         this.physics.add.collider(this.player, this.champignon,this.Bounding,null,this);
         this.physics.add.collider(this.player, this.boue,this.SpeedDown,null,this);
@@ -455,19 +521,24 @@ class TableauTiled extends Tableau{
         debug.setDepth(z--);
         this.blood.setDepth(z--);
         monstersContainer.setDepth(z--);
-        this.stars.setDepth(z--);
-        starsFxContainer.setDepth(z--);
+        this.plumes.setDepth(z--);
+        plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
+        this.planbuissonshaut.setDepth(z--);
+        this.planbuissonshaut2.setDepth(z--);    
         this.solides.setDepth(z--);
+        this.platforms.setDepth(z--);
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
         this.boue.setDepth(z--);
         this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
-        this.devant.setDepth(z--);
         this.player.setDepth(z--);
+        this.planbuissonshaut2.setDepth(z--); 
         this.devant.setDepth(z--);
+        this.fondplatforms.setDepth(z--);
+        //this.troncnid.setDepth(z--);
         // this.derriere.setDepth(z--);
         this.fondarbres2.setDepth(z--);
         this.fondbuissons.setDepth(z--);
@@ -545,8 +616,17 @@ class TableauTiled extends Tableau{
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
         this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
 
+        this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*0.5;
+        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
+
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
         this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
+
+        this.planbuissonshaut2.tilePositionX=this.cameras.main.scrollX*0.8;
+        this.planbuissonshaut2.tilePositionY=this.cameras.main.scrollY*1;
+
+        this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*1;
+        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
 
         this.premierplan.tilePositionX=this.cameras.main.scrollX*2;
         this.premierplan.tilePositionY=this.cameras.main.scrollY*1;

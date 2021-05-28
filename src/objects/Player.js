@@ -21,15 +21,27 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('player', { start: 9, end: 15 }),
-            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('player', { start: 9, end: 16 }),
+            frameRate: 15,
             repeat: -1
         });
         
+        // this.anims.create({
+        //     key: 'turn',
+        //     frames: [ { key: 'player', frame: 8 } ],
+        //     frameRate: 20
+        // });
+
         this.anims.create({
-            key: 'turn',
-            frames: [ { key: 'player', frame: 8 } ],
-            frameRate: 20
+            key: 'back',
+            frames: [ { key: 'player', frame: 7 } ],
+            frameRate: 10
+        });
+        this.anims.create({
+            key: 'stance',
+            frames: [ { key: 'player', frame: 9 } ]
+            // frameRate: 3,
+            // repeat: -1
         });
 
         this._directionX=0;
@@ -60,17 +72,21 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         switch (true){
             case this._directionX<0:
-                this.setVelocityX(-350);
+                this.sens=-1;
+                this.setVelocityX(-220);
                 this.anims.play('left', true);
                 break;
             case this._directionX>0:
-
-                this.setVelocityX(350);
+                this.sens=1;
+                this.setVelocityX(220);
                 this.anims.play('right', true);
                 break;
             default:
                 this.setVelocityX(0);
-                this.anims.play('turn');
+                this.anims.play('stance', true);
+                this.anims.play(this.sens===-1 ? 'back' : 'stance' ,true);
+                // this.setVelocityX(0);
+                // this.anims.play('turn');
         }
 
         if(this._directionY<0){
