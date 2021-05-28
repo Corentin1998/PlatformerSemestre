@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="15" nextobjectid="348">
  <editorsettings>
-  <export target="tableauTiledV10.json" format="json"/>
+  <export target="tableauTiledV11.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="tableauTiledTilesetV10" tilewidth="64" tileheight="64" tilecount="98" columns="14">
   <image source="tableauTiledTilesetV10.png" width="896" height="448"/>
@@ -39,7 +39,7 @@
  </objectgroup>
  <objectgroup id="2" name="plumes">
   <object id="171" gid="20" x="992.051" y="768.066" width="64" height="64"/>
-  <object id="231" gid="20" x="3642.5" y="783" width="64" height="64"/>
+  <object id="231" gid="20" x="3602.83" y="785.333" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="13" name="plant1">
   <object id="159" gid="85" x="448" y="896" width="64" height="64"/>

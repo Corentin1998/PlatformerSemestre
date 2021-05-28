@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"tableauTiledV10.json"
+         "target":"tableauTiledV11.json"
         }
     },
  "height":15,
@@ -152,8 +152,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":3642.5,
-                 "y":783
+                 "x":3602.83333333333,
+                 "y":785.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",

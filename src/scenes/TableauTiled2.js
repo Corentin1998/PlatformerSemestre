@@ -19,7 +19,7 @@ class TableauTiled2 extends Tableau{
         // -----et puis aussi-------------
         this.load.image('monster-fly', 'assets/monster-fly.png');
         this.load.image('night', 'assets/night.jpg');
-        this.load.image('star', 'assets/star.png');
+        this.load.image('plume', 'assets/plumeTaRace.png');
         //atlas de texture généré avec https://free-tex-packer.com/app/
         //on y trouve notre étoiles et une tête de mort
         this.load.atlas('particles', 'assets/particles/particles.png', 'assets/particles/particles.json');
