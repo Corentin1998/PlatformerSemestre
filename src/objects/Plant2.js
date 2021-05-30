@@ -1,4 +1,4 @@
-class Squirrel extends ObjetEnnemi{
+class Plant2 extends ObjetPhysique{
     /**
      *
      * @param {Tableau} scene
@@ -6,15 +6,11 @@ class Squirrel extends ObjetEnnemi{
      * @param y
      */
     constructor(scene, x, y) {
-        super(scene, x, y+26, "squirrel");
-        this.body.allowGravity=true;
+        super(scene, x, y-30, "plant2");
+        //super(scene, x, y, "monster-fly");
+        this.body.allowGravity=false;
         scene.physics.add.existing(this)
-        this.setDisplaySize(62,78);
-        this.setVelocityX(50);
-        this.setCollideWorldBounds(true);
-        this.setBounceX(1);
-
-
+        this.setDisplaySize(64,64);
         //on réduit un peu la zone de hit
         //this.setBodySize(this.body.width,this.body.height);
         //this.setOffset(11, 0);
@@ -36,8 +32,8 @@ class Squirrel extends ObjetEnnemi{
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('squirrel', { start: 1, end: 9 }),
-            frameRate: 9,
+            frames: this.anims.generateFrameNumbers('plant2', { start: 0, end: 7 }),
+            frameRate: 5,
             repeat: -1
         });
         
@@ -49,52 +45,52 @@ class Squirrel extends ObjetEnnemi{
  
             
         // X
-        this.originalX=x;
-        this.minX=x-200;
-        this.maxX=x+200;
+        //this.originalX=x;
+        //this.minX=x-200;
+        //this.maxX=x+200;
 
         // Y
-        this.originalY=y;
-        this.minY=y;
-        this.maxY=y;
+        //this.originalY=y;
+        //this.minY=y-20;
+        //this.maxY=height-64;
 
-        //on applique les propriété du début de l'animation
-        // this.x=this.minX;
-        // this.y=this.minY;
-        // this.alpha=0;
+        // on applique les propriété du début de l'animation
+        //this.x=this.minX;
+        //this.y=this.minY;
+        //this.alpha=0;
         let me=this;
 
         this.anims.play('right', true);
 
         //on fait apparaitre notre objet avec un petit delay, puis on lance l'animation
         //ceci a pour effet de décaler les animations pour ce même objet
-        scene.tweens.add({
+        /*scene.tweens.add({
                 targets:this,
                 duration:200,
                 delay:Math.random()*1000,
                 alpha:{
                     startDelay:Math.random()*5000,
-                    from:1,
+                    from:0,
                     to:1,
                 },
-                // onComplete: function () {
-                //     me.start();
-                // }
-            })
+                onComplete: function () {
+                    me.start();
+                }
+            })*/
     }
 
-    // start(){
-    //     this.scene.tweens.add({
-    //         targets: this,
-    //         y: {
-    //             from: this.minY,
-    //             to:this.maxY,
-    //             duration: 1500,
-    //             ease: 'Back.easeIn',
-    //             yoyo: -1,
-    //             repeat:-1,
-    //             flipX:true,
-    //         }
-    //     });
-    // }
+    /*start(){
+        this.scene.tweens.add({
+            targets: this,
+            y: {
+                from: this.minY,
+                to:this.maxY,
+                duration: 1500,
+                ease: 'Back.easeIn',
+                yoyo: -1,
+                repeat:-1,
+                flipX:true,
+            }
+        });
+    }*/
 }

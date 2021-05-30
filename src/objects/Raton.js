@@ -72,7 +72,7 @@ class Raton extends ObjetEnnemi{
                 delay:Math.random()*1000,
                 alpha:{
                     startDelay:Math.random()*5000,
-                    from:0,
+                    from:1,
                     to:1,
                 },
                 // onComplete: function () {

@@ -28,6 +28,11 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 42, frameHeight: 42 }
         );
 
+        this.load.spritesheet('plume',
+        'assets/plume.png',
+            { frameWidth: 33, frameHeight: 36  }
+        );
+
         this.load.spritesheet('squirrel',
         'assets/squirrel.png',
             { frameWidth: 62, frameHeight: 78  }
@@ -36,6 +41,11 @@ class Tableau extends Phaser.Scene{
         this.load.spritesheet('raton',
         'assets/raton.png',
             { frameWidth: 52, frameHeight: 75  }
+        );
+
+        this.load.spritesheet('bunny',
+        'assets/bunny.png',
+            { frameWidth: 40, frameHeight: 68  }
         );
 
         this.load.spritesheet('waterfall1',
@@ -50,6 +60,11 @@ class Tableau extends Phaser.Scene{
 
         this.load.spritesheet('plant1',
         'assets/plant1.png',
+            { frameWidth: 120, frameHeight: 130  }
+        );
+
+        this.load.spritesheet('plant2',
+        'assets/plant2.png',
             { frameWidth: 120, frameHeight: 130  }
         );
 
@@ -70,7 +85,7 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player(this,260,720);
+        this.player=new Player (this,260,650);//(this,260,720);
         this.player.setMaxVelocity(800,800); //évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;
@@ -95,6 +110,7 @@ class Tableau extends Phaser.Scene{
     saigne(object,onComplete){
         let me=this;
         me.blood.visible=true;
+        this.cameras.main.shake(1000,0.0050,true);
         me.blood.rotation = Phaser.Math.Between(0,6);
         me.blood.x=object.x;
         me.blood.y=object.y;
@@ -118,7 +134,7 @@ class Tableau extends Phaser.Scene{
 
     Bounding (player, champignon)
     {
-        player.setVelocityY(-750);
+        player.setVelocityY(-770);
     }
 
     SpeedDown (player, boue)
@@ -186,6 +202,7 @@ class Tableau extends Phaser.Scene{
                 })
                 //notre joueur rebondit sur le monstre
                 player.directionY=500;
+                this.cameras.main.shake(100,0.0050,true);
             }else{
                 //le joueur est mort
                 me.playerDie();

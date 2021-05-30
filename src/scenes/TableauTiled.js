@@ -14,22 +14,31 @@ class TableauTiled extends Tableau{
         // nos images
         this.load.image('tiles', 'assets/tilemaps/tableauTiledTilesetV10.png');
         //les données du tableau qu'on a créé dans TILED
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV12.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/tableauTiledV13.json');
 
         // -----et puis aussi-------------
-        this.load.image('platform', 'assets/platform.png');
+        //plateformes
         this.load.image('platformi', 'assets/platformi.png');
+        this.load.image('platform', 'assets/platform.png');
         this.load.image('fondplatform', 'assets/fondplatform.png');
-        this.load.image('monster-fly', 'assets/monster-fly.png');
-        this.load.image('ciel', 'assets/ciel.jpg');
-        this.load.image('troncnid', 'assets/troncnid.png');
-        this.load.image('fondarbres2', 'assets/fondarbres2.png');
-        this.load.image('fondbuissons', 'assets/fondbuissons.png');
-        this.load.image('planbuissonshaut', 'assets/planbuissonshaut.png');
-        this.load.image('planbuissonshaut2', 'assets/planbuissonshaut2.png');
-        this.load.image('fonddecor', 'assets/fonddecor.png');
-        this.load.image('premierplan', 'assets/premierplan.png');
+        this.load.image('mplatform', 'assets/mplatform.png');
+        this.load.image('mfondplatform', 'assets/mfondplatform.png');
+
+        //background
+        this.load.image('ciel', 'assets/background/ciel.jpg');
+        this.load.image('troncnid', 'assets/background/troncnid.png');
+        this.load.image('fondarbres2', 'assets/background/fondarbres2.png');
+        this.load.image('fondbuissons', 'assets/background/fondbuissons.png');
+        this.load.image('planbuissonshaut', 'assets/background/planbuissonshaut.png');
+        this.load.image('planbuissonshaut2', 'assets/background/planbuissonshaut2.png');
+        this.load.image('premierplan', 'assets/background/premierplan.png');
+        
+        //collectible
         this.load.image('plume', 'assets/plume.png');
+
+        //images de tutoriel
+        this.load.image('ennemis', 'assets/tuto/ennemis.jpg');
+        this.load.image('danger', 'assets/tuto/danger.jpg');
 
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
@@ -56,6 +65,12 @@ class TableauTiled extends Tableau{
             delay:0,
         }
         this.music.play(musicConfig);
+
+        //images de tuto
+        const image1 = this.add.image(1200, 600, 'ennemis').setDepth(1000);
+        const image2 = this.add.image(1750, 600, 'danger').setDepth(1000);
+
+
 
         //on en aura besoin...
         let ici=this;
@@ -115,25 +130,42 @@ class TableauTiled extends Tableau{
         this.platforms.create(255, 770, 'platformi');
 
         // plateforme 1
-        this.platforms.create(2700, 600, 'platform');
-        this.fondplatforms.create(2700, 567, 'fondplatform');
+        this.platforms.create(4050, 650, 'platform');
+        this.fondplatforms.create(4050, 617, 'fondplatform');
 
         // plateforme 2
-        this.platforms.create(3050, 480, 'platform');
-        this.fondplatforms.create(3050, 447, 'fondplatform');
+        this.platforms.create(3750, 530, 'platform');
+        this.fondplatforms.create(3750, 497, 'fondplatform');
 
-        //plateforme 3
-        this.platforms.create(3400, 600, 'platform');
-        this.fondplatforms.create(3400, 567, 'fondplatform');
+        // //plateforme 3
+        this.platforms.create(3400, 410, 'platform');
+        this.fondplatforms.create(3400, 377, 'fondplatform');
 
-        this.platforms.create(2700, 340, 'platform');
-        this.fondplatforms.create(2700, 307, 'fondplatform');
+        this.platforms.create(3050, 300, 'platform');
+        this.fondplatforms.create(3050, 267, 'fondplatform');
 
-        this.platforms.create(2300, 240, 'platform');
-        this.fondplatforms.create(2300, 207, 'fondplatform');
+        this.platforms.create(2650, 300, 'platform');
+        this.fondplatforms.create(2650, 267, 'fondplatform');
 
-        this.platforms.create(3600, 850, 'platform');
-        this.fondplatforms.create(3600, 817, 'fondplatform');
+        this.platforms.create(2250, 300, 'platform');
+        this.fondplatforms.create(2250, 267, 'fondplatform');
+
+        this.platforms.create(1850, 300, 'platform');
+        this.fondplatforms.create(1850, 267, 'fondplatform');
+
+        this.platforms.create(1450, 300, 'mplatform');
+        this.fondplatforms.create(1450, 267, 'mfondplatform');
+
+        this.platforms.create(1100, 310, 'mplatform');
+        this.fondplatforms.create(1100, 277, 'mfondplatform');
+        
+        this.platforms.create(800, 320, 'mplatform');
+        this.fondplatforms.create(800, 287, 'mfondplatform');
+
+        // plateformes de fin du niveau
+
+        this.platforms.create(6800, 550, 'mplatform');
+        this.fondplatforms.create(6800, 517, 'mfondplatform');
 
         //----------les étoiles (objets) ---------------------
 
@@ -202,6 +234,19 @@ class TableauTiled extends Tableau{
             this.physics.add.collider(monster, this.solides)
         });
 
+        ici.bunnyObjects = this.map.getObjectLayer('bunny')['objects'];
+        // On crée des montres volants pour chaque objet rencontré
+        ici.bunnyObjects.forEach(bunnyObject => {
+            console.log(bunnyObject)
+
+            let monster=new Bunny(montableau,bunnyObject.x,bunnyObject.y);
+            //let monster=montableau.create()
+            //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
+            //monster.setDisplaySize(32,32);
+            monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides)
+        });
+
         ici.waterfall1Objects = this.map.getObjectLayer('waterfall1')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.waterfall1Objects.forEach(waterfall1Object => {
@@ -234,6 +279,19 @@ class TableauTiled extends Tableau{
             console.log(plant1Object)
 
             let monster=new Plant1(montableau,plant1Object.x,plant1Object.y);
+            //let monster=montableau.create()
+            //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
+            //monster.setDisplaySize(32,32);
+            monstersContainer.add(monster);
+            this.physics.add.collider(monster, this.solides)
+        });
+
+        ici.plant2Objects = this.map.getObjectLayer('plant2')['objects'];
+        // On crée des montres volants pour chaque objet rencontré
+        ici.plant2Objects.forEach(plant2Object => {
+            console.log(plant2Object)
+
+            let monster=new Plant2(montableau,plant2Object.x,plant2Object.y);
             //let monster=montableau.create()
             //let monster = montableau.create(squirrelObject.x,squirrelObject.y , 'monster-fly');
             //monster.setDisplaySize(32,32);
@@ -507,18 +565,6 @@ class TableauTiled extends Tableau{
         this.fondbuissons.setScrollFactor(0);
         this.fondbuissons.alpha=1;
 
-        this.fonddecor=this.add.tileSprite(
-            0,
-            0,
-            this.sys.canvas.width,
-            this.sys.canvas.height,
-            'fonddecor'
-        );
-
-        this.fonddecor.setOrigin(0,0);
-        this.fonddecor.setScrollFactor(0);
-        this.fonddecor.alpha=1;
-
         this.troncnid=this.add.image(
              0,
              0,
@@ -550,6 +596,8 @@ class TableauTiled extends Tableau{
         debug.setDepth(z--);
         this.blood.setDepth(z--);
         //splumesContainer.setDepth(z--);
+        this.eauFxContainer.setDepth(z--);
+        this.eau.setDepth(z--);
         monstersContainer.setDepth(z--);
         // this.plumes.setDepth(z--);
         //plumesFxContainer.setDepth(z--);
@@ -562,19 +610,18 @@ class TableauTiled extends Tableau{
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
         this.boue.setDepth(z--);
-        this.eauFxContainer.setDepth(z--);
-        this.eau.setDepth(z--);
+        // this.eauFxContainer.setDepth(z--);
+        // this.eau.setDepth(z--);
         this.player.setDepth(z--);
         plumesContainer.setDepth(z--);
         this.fondplatforms.setDepth(z--);
         plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
-        this.planbuissonshaut2.setDepth(z--);
         this.troncnid.setDepth(z--);
+        this.planbuissonshaut2.setDepth(z--);
         // this.derriere.setDepth(z--);
         this.fondarbres2.setDepth(z--);
         this.fondbuissons.setDepth(z--);
-        this.fonddecor.setDepth(z--);
         this.ciel.setDepth(z--);
 
     }
@@ -639,22 +686,19 @@ class TableauTiled extends Tableau{
      */
     moveParallax(){
         //le ciel se déplace moins vite que la caméra pour donner un effet paralax
-        this.ciel.tilePositionX=this.cameras.main.scrollX*0.3;
+        this.ciel.tilePositionX=this.cameras.main.scrollX*0.1;
         this.ciel.tilePositionY=this.cameras.main.scrollY*0.6;
 
-        this.fonddecor.tilePositionX=this.cameras.main.scrollX*0.3;
-        this.fonddecor.tilePositionY=this.cameras.main.scrollY*1;
-
-        this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.5;
+        this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.3;
         this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
 
-        this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*0.5;
-        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
+        // this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*0.5;
+        // this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
 
-        this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.7;
+        this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.5;
         this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
 
-        this.planbuissonshaut2.tilePositionX=this.cameras.main.scrollX*0.8;
+        this.planbuissonshaut2.tilePositionX=this.cameras.main.scrollX*0.7;
         this.planbuissonshaut2.tilePositionY=this.cameras.main.scrollY*1;
 
         this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*1;

@@ -73,12 +73,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         switch (true){
             case this._directionX<0:
                 this.sens=-1;
-                this.setVelocityX(-300);
+                this.setVelocityX(-250);
                 this.anims.play('left', true);
                 break;
             case this._directionX>0:
                 this.sens=1;
-                this.setVelocityX(300);
+                this.setVelocityX(250);
                 this.anims.play('right', true);
                 break;
             default:
@@ -91,7 +91,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         if(this._directionY<0){
             if(this.body.blocked.down || this.body.touching.down){
-                this.setVelocityY(-650);
+                this.setVelocityY(-600);
             }
         }
 
