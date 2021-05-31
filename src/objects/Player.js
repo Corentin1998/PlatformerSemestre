@@ -93,6 +93,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             if(this.body.blocked.down || this.body.touching.down){
                 this.setVelocityY(-600);
             }
+
+        }
+        else if(this._directionY>0){
+            if(!this.body.blocked.down || !this.body.touching.down){
+                this.setVelocityY(80);
+            }
+
         }
 
     }

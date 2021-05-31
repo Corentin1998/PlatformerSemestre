@@ -38,7 +38,7 @@ class TableauTiled extends Tableau{
         this.load.image('premierplan', 'assets/background/premierplan.png');
         
         //collectible
-        this.load.image('plume', 'assets/plume.png');
+        //this.load.image('plume', 'assets/plume.png');
 
         //images de tutoriel
         this.load.image('ennemis', 'assets/tuto/ennemis.jpg');
@@ -129,7 +129,6 @@ class TableauTiled extends Tableau{
         this.platforms = this.physics.add.staticGroup();
         this.fondplatforms = this.physics.add.staticGroup();
         this.physics.add.collider(this.player, this.platforms);
-        this.physics.add.collider(this.platforms, this.plumes);
 
         this.platforms.create(255, 770, 'platformi');
 
@@ -599,12 +598,9 @@ class TableauTiled extends Tableau{
         let z=1000; //niveau Z qui a chaque fois est décrémenté.
         debug.setDepth(z--);
         this.blood.setDepth(z--);
-        //splumesContainer.setDepth(z--);
         this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
         monstersContainer.setDepth(z--);
-        // this.plumes.setDepth(z--);
-        //plumesFxContainer.setDepth(z--);
         //this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
         this.planbuissonshaut.setDepth(z--);

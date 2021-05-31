@@ -7,7 +7,7 @@ class TableauIntro extends Phaser.Scene{
       preload ()
       {
       
-          this.load.image('intro', 'assets/intro.jpg');
+          //this.load.image('ecrantitre', 'assets/intro.jpg');
           //this.load.image('bouton', 'assets/bouton.png');
           
           
@@ -24,7 +24,7 @@ class TableauIntro extends Phaser.Scene{
           
          
   
-          this.add.sprite(game.config.width/2, game.config.height/2, 'ecran');
+          this.add.sprite(game.config.width/2, game.config.height/2, 'ecrantitre');
          
     
   

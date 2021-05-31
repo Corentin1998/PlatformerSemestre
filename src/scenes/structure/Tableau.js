@@ -17,7 +17,7 @@ class Tableau extends Phaser.Scene{
     preload(){
         this.load.image('sky', 'assets/sky.png');
         this.load.image('blood', 'assets/blood.png');
-        this.load.image('spike', 'assets/spike.png');
+        //this.load.image('spike', 'assets/spike.png');
         this.load.spritesheet('player',
             'assets/player.png',
             { frameWidth: 42, frameHeight: 64  }
@@ -169,14 +169,14 @@ class Tableau extends Phaser.Scene{
       * @param player
       * @param spike
       */
-    hitSpike (player, spike)
-    {
-        this.physics.pause();
-        player.setTint(0xff0000);
-        player.anims.play('turn');
-        this.scene.restart();
+    // hitSpike (player, spike)
+    // {
+    //     this.physics.pause();
+    //     player.setTint(0xff0000);
+    //     player.anims.play('turn');
+    //     this.scene.restart();
 
-    }
+    // }
 
     /**
      * Quand on touche un monstre
