@@ -1,4 +1,4 @@
-class Tableau00 extends Phaser.scene{
+class TableauIntro extends Phaser.Scene{
 
     constructor(){
         super("bootGame");
@@ -111,7 +111,7 @@ class Tableau00 extends Phaser.scene{
                   this.scene.start("aventureBegining");*/
                   this.EnterPressed = true;
                   this.game.scene.start(TableauTiled);
-                  this.scene.start("");
+                  this.scene.start("jeu");
               })
   
           },this);

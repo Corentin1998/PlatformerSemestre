@@ -14,13 +14,9 @@ let config = {
         }
     },
     scene: [
+        new TableauIntro("intro"),
         new Ui(),
-
-        //new Tableau00("Des étoiles"),
-        new Tableau00("intro"),
         new TableauTiled("Tiled pour les gros gros levels"),
-        new TableauTiled2("J'avance tout doucement"),
-        new TableauBirdSpriteJson("Un oiseau! "),
 
 
     ],
