@@ -3,6 +3,7 @@ class Ui extends Phaser.Scene{
     {
         super({ key: 'ui', active: true });
         window.ui=this;
+        this.hp = 3;
     }
     preload(){
         this.load.image('ui/full-screen-icon', 'assets/ui/full-screen.png');
@@ -17,7 +18,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._scoreText = this.add.text(16, 16, '...', {
-            font:'32px "Hanalei Fill"',
+            font:'32px "PP Jungle Bones"',
             fill: '#fff'
         });
 
@@ -27,7 +28,7 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauText = this.add.text(this.sys.canvas.width-16, 16, '...', {
-            font:'32px "Hanalei Fill"',
+            font:'32px "PP Jungle Bones"',
             align: 'right',
             fill: '#fff'
         })
@@ -38,10 +39,20 @@ class Ui extends Phaser.Scene{
          * @private
          */
         this._tableauTextClass = this.add.text(this.sys.canvas.width-16, 16+32, '...', {
-            font:'24px "Hanalei Fill"',
+            font:'24px "PP Jungle Bones"',
             align: 'right',
             fill: '#fff',
         }).setAlpha(0.5)
+
+        /**
+        * Le champ texte des points de vie
+        * @type {Phaser.GameObjects.Text}
+        * @private
+        */
+        this._hpText = this.add.text(16, 16+80, '', {
+            font:'16px "PP Jungle Bones"',
+            fill: '#fff'
+        });
 
         this._tableauText.originX=1;
         this._tableauTextClass.originX=1;
@@ -89,12 +100,14 @@ class Ui extends Phaser.Scene{
         btFs.y=this.sys.canvas.height;
 
     }
-
-    gagne(points=10)
+    
+    // Score
+    gagne(points=1)
     {
         this.score+=points;
-        this._scoreText.setText('Score: ' + this.score);
+        this._scoreText.setText('Plumes: ' + this.score + '/5');
     }
+
     update(){
         if(Tableau.current){
             this._tableauText.setText(Tableau.current.scene.key);

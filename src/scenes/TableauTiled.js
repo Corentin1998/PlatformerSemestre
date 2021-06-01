@@ -23,10 +23,15 @@ class TableauTiled extends Tableau{
         // -----et puis aussi-------------
         //plateformes
         this.load.image('platformi', 'assets/platformi.png');
+
         this.load.image('platform', 'assets/platform.png');
         this.load.image('fondplatform', 'assets/fondplatform.png');
+
         this.load.image('mplatform', 'assets/mplatform.png');
         this.load.image('mfondplatform', 'assets/mfondplatform.png');
+
+        this.load.image('bplatform', 'assets/bplatform.png');
+        this.load.image('bfondplatform', 'assets/bfondplatform.png');
 
         //background
         this.load.image('ciel', 'assets/background/ciel.jpg');
@@ -36,13 +41,15 @@ class TableauTiled extends Tableau{
         this.load.image('planbuissonshaut', 'assets/background/planbuissonshaut.png');
         this.load.image('planbuissonshaut2', 'assets/background/planbuissonshaut2.png');
         this.load.image('premierplan', 'assets/background/premierplan.png');
+        this.load.image('cabane', 'assets/background/cabane.png');
         
         //collectible
         //this.load.image('plume', 'assets/plume.png');
 
         //images de tutoriel
-        this.load.image('ennemis', 'assets/tuto/ennemis.jpg');
-        this.load.image('danger', 'assets/tuto/danger.jpg');
+        this.load.image('ennemis', 'assets/dialogue/ennemis.jpg');
+        this.load.image('danger', 'assets/dialogue/danger.jpg');
+        this.load.image('bonus', 'assets/dialogue/bonus.jpg');
 
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
@@ -71,10 +78,9 @@ class TableauTiled extends Tableau{
         this.music.play(musicConfig);
 
         //images de tuto
-        const image1 = this.add.image(1200, 600, 'ennemis').setDepth(1000);
+        const image1 = this.add.image(1220, 600, 'ennemis').setDepth(1000);
         const image2 = this.add.image(1750, 600, 'danger').setDepth(1000);
-
-
+        const image3 = this.add.image(2530, 573, 'bonus').setDepth(1000);
 
         //on en aura besoin...
         let ici=this;
@@ -167,8 +173,30 @@ class TableauTiled extends Tableau{
 
         // plateformes de fin du niveau
 
-        this.platforms.create(6800, 550, 'mplatform');
-        this.fondplatforms.create(6800, 517, 'mfondplatform');
+        this.platforms.create(6800, 500, 'mplatform');
+        this.fondplatforms.create(6800, 467, 'mfondplatform');
+
+        this.platforms.create(7200, 500, 'bplatform');
+        this.fondplatforms.create(7200, 474, 'bfondplatform');
+
+        
+
+
+        // var platform = this.physics.add.image(6800, 550, 'bplatform')
+        //     .setImmovable(true)
+        //     .setVelocity(100, -100);
+
+        // platform.body.setAllowGravity(false);
+        
+        // this.tweens.timeline({
+        //     targets: platform.body.velocity,
+        //     loop: -1,
+        //     tweens: [
+        //         { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
+        //         { x:    0, y:    0, duration: 1000, ease: 'Stepped' },
+        //         { x:  150, y:  100, duration: 4000, ease: 'Stepped' },
+        //     ]
+        // });
 
         //----------les étoiles (objets) ---------------------
 
@@ -579,6 +607,17 @@ class TableauTiled extends Tableau{
          this.troncnid.setScrollFactor(1);
          this.troncnid.alpha=1;
 
+         this.cabane=this.add.image(
+            10112,
+            0,
+
+            'cabane'
+        );
+
+        this.cabane.setOrigin(0,0);
+        this.cabane.setScrollFactor(1);
+        this.cabane.alpha=1;
+
         //----------collisions---------------------
 
         //quoi collide avec quoi?
@@ -600,6 +639,7 @@ class TableauTiled extends Tableau{
         this.blood.setDepth(z--);
         this.eauFxContainer.setDepth(z--);
         this.eau.setDepth(z--);
+        this.eau.setDepth(z--);
         monstersContainer.setDepth(z--);
         //this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
@@ -610,13 +650,12 @@ class TableauTiled extends Tableau{
         this.champignon.setDepth(z--);
         this.boueFxContainer.setDepth(z--);
         this.boue.setDepth(z--);
-        // this.eauFxContainer.setDepth(z--);
-        // this.eau.setDepth(z--);
         this.player.setDepth(z--);
         plumesContainer.setDepth(z--);
         this.fondplatforms.setDepth(z--);
         plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
+        this.cabane.setDepth(z--);
         this.troncnid.setDepth(z--);
         this.planbuissonshaut2.setDepth(z--);
         // this.derriere.setDepth(z--);

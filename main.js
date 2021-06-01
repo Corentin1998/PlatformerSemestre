@@ -10,11 +10,11 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 100*3 },
-            debug: false,
+            debug: true,
         }
     },
     scene: [
-        new TableauIntro("ecran titre"),
+        //new TableauIntro("ecran titre"),
         new Ui(),
         new TableauTiled("Tiled pour les gros gros levels"),
 

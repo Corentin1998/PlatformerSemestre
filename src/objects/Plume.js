@@ -6,7 +6,7 @@ class Plume extends ObjetPhysique{
      * @param y
      */
     constructor(scene, x, y) {
-        super(scene, x, y, "plume");
+        super(scene, x+30, y-32, "plume");
         this.setDisplaySize(33,36);
         scene.add.existing(this);
         scene.physics.add.existing(this);
