@@ -44,6 +44,21 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             // repeat: -1
         });
 
+        this.anims.create({
+            key: 'leftfly',
+            frames: [ { key: 'playerfly', frame: 0 } ],
+            frameRate: 2,
+            //repeat: -1
+        });
+
+        this.anims.create({
+            key: 'rightfly',
+            frames: [ { key: 'playerfly', frame: 1 } ],
+            // frameRate: 2,
+            // repeat: -1
+        });
+        
+
         this._directionX=0;
         this._directionY=0;
     }
@@ -96,8 +111,10 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         }
         else if(this._directionY>0){
-            if(!this.body.blocked.down || !this.body.touching.down){
+            if(!this.body.blocked.down && !this.body.touching.down){
                 this.setVelocityY(80);
+                this.anims.play('leftfly', true);
+                this.anims.play(this.sens===-1 ? 'leftly' : 'rightfly' ,true);
             }
 
         }

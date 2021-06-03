@@ -80,6 +80,17 @@ class Raton extends ObjetEnnemi{
                 // }
             })
     }
+    update(){
+        //fait changer de sens notre oiseau
+        if(this.body){
+            if(this.body.velocity.x<0){
+                this.flipX=false;
+            }else{
+                this.flipX=true;
+            }
+        }
+    
+    }
 
     /*start(){
         this.scene.tweens.add({

@@ -23,9 +23,14 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 42, frameHeight: 64  }
         );
 
+        this.load.spritesheet('playerfly',
+            'assets/playerfly.png',
+            { frameWidth: 67, frameHeight: 67  }
+        );
+
         this.load.spritesheet('stance',
             'assets/player.png',
-            { frameWidth: 42, frameHeight: 42 }
+            { frameWidth: 42, frameHeight: 64 }
         );
 
         this.load.spritesheet('plume',
@@ -68,6 +73,11 @@ class Tableau extends Phaser.Scene{
             { frameWidth: 120, frameHeight: 130  }
         );
 
+        // Sons
+
+        this.load.audio('champignon', 'assets/sons/champignon.mp3');
+
+
     }
     create(){
         Tableau.current=this;
@@ -85,13 +95,12 @@ class Tableau extends Phaser.Scene{
          * Le joueur
          * @type {Player}
          */
-        this.player=new Player (this,/*260*/1500,600);//(this,260,720);
+        this.player=new Player (this,13200,300);//(this,260,720);
         this.player.setMaxVelocity(800,800);//évite que le player quand il tombe ne traverse des plateformes
         this.blood=this.add.sprite(this.sys.canvas.width/2,this.sys.canvas.height/2,"blood")
         this.blood.displayWidth=64;
         this.blood.displayHeight=64;
         this.blood.visible=false;
-
 
 
     }
@@ -134,7 +143,9 @@ class Tableau extends Phaser.Scene{
 
     Bounding (player, champignon)
     {
-        player.setVelocityY(-770);
+        if(champignon.body.touching.up){
+            player.setVelocityY(-770);
+        };
     }
 
     SpeedDown (player, boue)
@@ -142,6 +153,24 @@ class Tableau extends Phaser.Scene{
         player.setVelocityX(200);
         player.setVelocityY(-300);
     }
+
+    moveVertically()
+    {
+	    this.scene.tweens.addCounter({
+		from: 0,
+		to: -300,
+		duration: 1500,
+		ease: Phaser.Math.Easing.Sine.InOut,
+		repeat: -1,
+		yoyo: true,
+		onUpdate: (tween, target) => {
+			const y = this.startY + target.value
+			const dy = y - this.y
+			this.y = y
+			this.setVelocityY(dy)
+		}
+	})
+}
 
      ramasserEtoile (player, plume)
      {
@@ -194,7 +223,7 @@ class Tableau extends Phaser.Scene{
                 && player.getBounds().bottom < monster.getBounds().top+30
 
             ){
-                ui.gagne();
+                //ui.gagne();
                 monster.isDead=true; //ok le monstre est mort
                 monster.disableBody(true,true);//plus de collisions
                 this.saigne(monster,function(){

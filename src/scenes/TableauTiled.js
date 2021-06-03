@@ -23,15 +23,11 @@ class TableauTiled extends Tableau{
         // -----et puis aussi-------------
         //plateformes
         this.load.image('platformi', 'assets/platformi.png');
-
         this.load.image('platform', 'assets/platform.png');
         this.load.image('fondplatform', 'assets/fondplatform.png');
-
         this.load.image('mplatform', 'assets/mplatform.png');
         this.load.image('mfondplatform', 'assets/mfondplatform.png');
-
         this.load.image('bplatform', 'assets/bplatform.png');
-        this.load.image('bfondplatform', 'assets/bfondplatform.png');
 
         //background
         this.load.image('ciel', 'assets/background/ciel.jpg');
@@ -42,14 +38,15 @@ class TableauTiled extends Tableau{
         this.load.image('planbuissonshaut2', 'assets/background/planbuissonshaut2.png');
         this.load.image('premierplan', 'assets/background/premierplan.png');
         this.load.image('cabane', 'assets/background/cabane.png');
+        this.load.image('antagoniste', 'assets/background/antagoniste.png');
         
         //collectible
         //this.load.image('plume', 'assets/plume.png');
 
-        //images de tutoriel
-        this.load.image('ennemis', 'assets/dialogue/ennemis.jpg');
-        this.load.image('danger', 'assets/dialogue/danger.jpg');
-        this.load.image('bonus', 'assets/dialogue/bonus.jpg');
+        // //images de tutoriel
+        // this.load.image('ennemis', 'assets/dialogue/ennemis.jpg');
+        // this.load.image('danger', 'assets/dialogue/danger.jpg');
+        // this.load.image('bonus', 'assets/dialogue/bonus.jpg');
 
 
         //atlas de texture généré avec https://free-tex-packer.com/app/
@@ -58,7 +55,7 @@ class TableauTiled extends Tableau{
         this.load.atlas('bulle', 'assets/particles/bulle.png', 'assets/particles/bulle.json');
 
         //musique
-        this.load.audio('music', 'assets/sounds/music.mp3');
+        this.load.audio('music', 'assets/sons/music.mp3');
     }
     create() {
         super.create();
@@ -68,7 +65,7 @@ class TableauTiled extends Tableau{
 
         var musicConfig = {
             mute: false,
-            volume: 0,
+            volume: 0.1,
             rate : 1,
             detune: 0,
             seek: 0,
@@ -76,11 +73,6 @@ class TableauTiled extends Tableau{
             delay:0,
         }
         this.music.play(musicConfig);
-
-        //images de tuto
-        const image1 = this.add.image(1220, 600, 'ennemis').setDepth(1000);
-        const image2 = this.add.image(1750, 600, 'danger').setDepth(1000);
-        const image3 = this.add.image(2530, 573, 'bonus').setDepth(1000);
 
         //on en aura besoin...
         let ici=this;
@@ -105,6 +97,7 @@ class TableauTiled extends Tableau{
         this.champignon = this.map.createLayer('champignon', this.tileset, 0, 0);
         this.boue = this.map.createLayer('boue', this.tileset, 0, 0);
         this.eau = this.map.createLayer('eau', this.tileset, 0, 0);
+        this.tutoriels = this.map.createLayer('tutoriels', this.tileset, 0, 0);
         // this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
         this.devant = this.map.createLayer('devant', this.tileset, 0, 0);
 
@@ -118,10 +111,12 @@ class TableauTiled extends Tableau{
         //this.devant.setCollisionByProperty({Collision: true });
         this.solides.setCollisionByProperty({Collision: true });
         this.champignon.setCollisionByProperty({Collision: true });
+        this.tutoriels.setCollisionByProperty({Collision: true });
 
         // 2 manière la plus simple (là où il y a des tiles ça collide et sinon non)
         this.solides.setCollisionByExclusion(-1, true);
         this.champignon.setCollisionByExclusion(-1, true);
+        this.tutoriels.setCollisionByExclusion(-1, true);
         this.boue.setCollisionByExclusion(-1, true);
         this.eau.setCollisionByExclusion(-1, true);
         
@@ -135,6 +130,10 @@ class TableauTiled extends Tableau{
         this.platforms = this.physics.add.staticGroup();
         this.fondplatforms = this.physics.add.staticGroup();
         this.physics.add.collider(this.player, this.platforms);
+
+        this.platform = this.physics.add.staticGroup();
+        this.fondplatform = this.physics.add.staticGroup();
+        this.physics.add.collider(this.player, this.platform);
 
         this.platforms.create(255, 770, 'platformi');
 
@@ -176,27 +175,97 @@ class TableauTiled extends Tableau{
         this.platforms.create(6800, 500, 'mplatform');
         this.fondplatforms.create(6800, 467, 'mfondplatform');
 
-        this.platforms.create(7200, 500, 'bplatform');
-        this.fondplatforms.create(7200, 474, 'bfondplatform');
 
+        // Plateforme verticale
+        let platformContainer=this.add.container();
+
+        var platform = this.physics.add.image(7200, 350, 'bplatform')
+            .setImmovable(true)
+            .setVelocity(100, -100)
+            .setBodySize(64,31)
+            .setOffset(0,15);
+
+
+        platform.body.setAllowGravity(false);
+        this.physics.add.collider(platform, this.player);
+        platformContainer.add(platform);
         
+        this.tweens.timeline({
+            targets: platform.body.velocity,
+            loop: -1,
+            yoyo: true,
+            tweens: [
+                { x:    0, y: 170, duration: 1000, ease: 'Stepped' },
+                { x:    0, y: -170, duration: 1000, ease: 'Stepped' },
+            ]
+        });
 
+        // Plateforme horizontale
 
-        // var platform = this.physics.add.image(6800, 550, 'bplatform')
-        //     .setImmovable(true)
-        //     .setVelocity(100, -100);
+        var platform = this.physics.add.image(7650, 700, 'bplatform')
+            .setImmovable(true)
+            .setVelocity(100, -100)
+            .setBodySize(64,31)
+            .setOffset(0,15);
 
-        // platform.body.setAllowGravity(false);
+        platform.body.setAllowGravity(false);
+        this.physics.add.collider(platform, this.player);
+        platformContainer.add(platform);
         
-        // this.tweens.timeline({
-        //     targets: platform.body.velocity,
-        //     loop: -1,
-        //     tweens: [
-        //         { x:    0, y: -200, duration: 2000, ease: 'Stepped' },
-        //         { x:    0, y:    0, duration: 1000, ease: 'Stepped' },
-        //         { x:  150, y:  100, duration: 4000, ease: 'Stepped' },
-        //     ]
-        // });
+        this.tweens.timeline({
+            targets: platform.body.velocity,
+            loop: -1,
+            yoyo: true,
+            tweens: [
+                { x:    -170, y: 0, duration: 1000, ease: 'Stepped' },
+                { x:    170, y: 0, duration: 1000, ease: 'Stepped' },
+            ]
+        });
+
+        // Plateforme vertical 2
+
+        var platform = this.physics.add.image(7700, 350, 'bplatform')
+            .setImmovable(true)
+            .setVelocity(100, -100)
+            .setBodySize(64,31)
+            .setOffset(0,15);
+
+
+        platform.body.setAllowGravity(false);
+        this.physics.add.collider(platform, this.player);
+        platformContainer.add(platform);
+        
+        this.tweens.timeline({
+            targets: platform.body.velocity,
+            loop: -1,
+            yoyo: true,
+            tweens: [
+                { x:    0, y: 170, duration: 1000, ease: 'Stepped' },
+                { x:    0, y: -170, duration: 1000, ease: 'Stepped' },
+            ]
+        });
+
+        // Plateforme horizontale 2
+
+        var platform = this.physics.add.image(8150, 700, 'bplatform')
+            .setImmovable(true)
+            .setVelocity(100, -100)
+            .setBodySize(64,31)
+            .setOffset(0,15);
+
+        platform.body.setAllowGravity(false);
+        this.physics.add.collider(platform, this.player);
+        platformContainer.add(platform);
+        
+        this.tweens.timeline({
+            targets: platform.body.velocity,
+            loop: -1,
+            yoyo: true,
+            tweens: [
+                { x:    -170, y: 0, duration: 1000, ease: 'Stepped' },
+                { x:    170, y: 0, duration: 1000, ease: 'Stepped' },
+            ]
+        });
 
         //----------les étoiles (objets) ---------------------
 
@@ -506,6 +575,12 @@ class TableauTiled extends Tableau{
             faceColor: null // Color of colliding face edges
         });
 
+        this.tutoriels.renderDebug(debug,{
+            tileColor: null, // Couleur des tiles qui ne collident pas
+            collidingTileColor: new Phaser.Display.Color(0, 255, 0, 255), //Couleur des tiles qui collident
+            faceColor: null // Color of colliding face edges
+        });
+
         //debug eau en rouge
         this.eau.renderDebug(debug,{
             tileColor: null, // Couleur des tiles qui ne collident pas
@@ -538,6 +613,17 @@ class TableauTiled extends Tableau{
         this.ciel.setScrollFactor(0);//fait en sorte que le ciel ne suive pas la caméra
         //this.sky2.blendMode=Phaser.BlendModes.ADD;
 
+        // this.tutoriels=this.add.tileSprite(
+        //     0,
+        //     0,
+        //     this.sys.canvas.width,
+        //     this.sys.canvas.height,
+        //     'tutoriels'
+        // );
+
+        // this.tutoriels.setOrigin(0,0);
+        // this.tutoriels.setScrollFactor(0);
+
         this.premierplan=this.add.tileSprite(
             0,
             0,
@@ -549,6 +635,7 @@ class TableauTiled extends Tableau{
         this.premierplan.setOrigin(0,0);
         this.premierplan.setScrollFactor(0);
 
+
         this.planbuissonshaut=this.add.tileSprite(
             0,
             0,
@@ -559,6 +646,7 @@ class TableauTiled extends Tableau{
 
         this.planbuissonshaut.setOrigin(0,0);
         this.planbuissonshaut.setScrollFactor(0);
+
 
         this.planbuissonshaut2=this.add.tileSprite(
             0,
@@ -584,6 +672,7 @@ class TableauTiled extends Tableau{
         this.fondarbres2.setScrollFactor(0);
         this.fondarbres2.alpha=1;
 
+
         this.fondbuissons=this.add.tileSprite(
             0,
             0,
@@ -592,24 +681,27 @@ class TableauTiled extends Tableau{
             'fondbuissons'
         );
 
+
         this.fondbuissons.setOrigin(0,0);
         this.fondbuissons.setScrollFactor(0);
         this.fondbuissons.alpha=1;
 
         this.troncnid=this.add.image(
-             0,
-             0,
-
-             'troncnid'
-         );
-
-         this.troncnid.setOrigin(0,0);
-         this.troncnid.setScrollFactor(1);
-         this.troncnid.alpha=1;
-
-         this.cabane=this.add.image(
-            10112,
             0,
+            0,
+
+            'troncnid'
+        );
+
+
+        this.troncnid.setOrigin(0,0);
+        this.troncnid.setScrollFactor(1);
+        this.troncnid.alpha=1;
+
+
+        this.cabane=this.add.image(
+            12352,
+            8,
 
             'cabane'
         );
@@ -617,6 +709,17 @@ class TableauTiled extends Tableau{
         this.cabane.setOrigin(0,0);
         this.cabane.setScrollFactor(1);
         this.cabane.alpha=1;
+
+        this.antagoniste=this.add.image(
+            13680,
+            705,
+
+            'antagoniste'
+        );
+
+        this.antagoniste.setOrigin(0,0);
+        this.antagoniste.setScrollFactor(1);
+        this.antagoniste.alpha=1;
 
         //----------collisions---------------------
 
@@ -651,10 +754,14 @@ class TableauTiled extends Tableau{
         this.boueFxContainer.setDepth(z--);
         this.boue.setDepth(z--);
         this.player.setDepth(z--);
+        platformContainer.setDepth(z--);
+        // platform.setDepth(z--);
+        this.tutoriels.setDepth(z--);
         plumesContainer.setDepth(z--);
         this.fondplatforms.setDepth(z--);
         plumesFxContainer.setDepth(z--);
         this.devant.setDepth(z--);
+        this.antagoniste.setDepth(z--);
         this.cabane.setDepth(z--);
         this.troncnid.setDepth(z--);
         this.planbuissonshaut2.setDepth(z--);
