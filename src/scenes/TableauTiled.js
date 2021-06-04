@@ -721,22 +721,22 @@ class TableauTiled extends Tableau{
         this.ciel.tilePositionY=this.cameras.main.scrollY*0.6;
 
         this.fondbuissons.tilePositionX=this.cameras.main.scrollX*0.3;
-        this.fondbuissons.tilePositionY=this.cameras.main.scrollY*1;
+        this.fondbuissons.tilePositionY=this.cameras.main.scrollY;
 
         // this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*0.5;
         // this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
 
         this.fondarbres2.tilePositionX=this.cameras.main.scrollX*0.5;
-        this.fondarbres2.tilePositionY=this.cameras.main.scrollY*1;
+        this.fondarbres2.tilePositionY=this.cameras.main.scrollY;
 
         this.planbuissonshaut2.tilePositionX=this.cameras.main.scrollX*0.7;
-        this.planbuissonshaut2.tilePositionY=this.cameras.main.scrollY*1;
+        this.planbuissonshaut2.tilePositionY=this.cameras.main.scrollY;
 
         this.planbuissonshaut.tilePositionX=this.cameras.main.scrollX*1;
-        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY*1;
+        this.planbuissonshaut.tilePositionY=this.cameras.main.scrollY;
 
         this.premierplan.tilePositionX=this.cameras.main.scrollX*2;
-        this.premierplan.tilePositionY=this.cameras.main.scrollY*1;
+        this.premierplan.tilePositionY=this.cameras.main.scrollY;
     }
 
 
