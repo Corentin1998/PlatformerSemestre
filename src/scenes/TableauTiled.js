@@ -95,7 +95,6 @@ class TableauTiled extends Tableau{
 
         this.solides = this.map.createLayer('solides', this.tileset, 0, 0);
         this.champignon = this.map.createLayer('champignon', this.tileset, 0, 0);
-        this.boue = this.map.createLayer('boue', this.tileset, 0, 0);
         this.eau = this.map.createLayer('eau', this.tileset, 0, 0);
         this.tutoriels = this.map.createLayer('tutoriels', this.tileset, 0, 0);
         // this.derriere = this.map.createLayer('derriere', this.tileset, 0, 0);
@@ -107,7 +106,6 @@ class TableauTiled extends Tableau{
         //permet de travailler sur un seul layer dans tiled et des définir les collisions en fonction des graphiques
         //exemple ici https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
         //this.solides.set({Collision: true });
-        //this.boue.setCollisionByProperty({Collision: true });
         //this.devant.setCollisionByProperty({Collision: true });
         this.solides.setCollisionByProperty({Collision: true });
         this.champignon.setCollisionByProperty({Collision: true });
@@ -117,7 +115,6 @@ class TableauTiled extends Tableau{
         this.solides.setCollisionByExclusion(-1, true);
         this.champignon.setCollisionByExclusion(-1, true);
         this.tutoriels.setCollisionByExclusion(-1, true);
-        this.boue.setCollisionByExclusion(-1, true);
         this.eau.setCollisionByExclusion(-1, true);
         
         //this.devant.setCollisionByExclusion(-1, true);
@@ -157,18 +154,6 @@ class TableauTiled extends Tableau{
 
         this.platforms.create(2250, 300, 'platform');
         this.fondplatforms.create(2250, 267, 'fondplatform');
-
-        this.platforms.create(1850, 300, 'platform');
-        this.fondplatforms.create(1850, 267, 'fondplatform');
-
-        this.platforms.create(1450, 300, 'mplatform');
-        this.fondplatforms.create(1450, 267, 'mfondplatform');
-
-        this.platforms.create(1100, 310, 'mplatform');
-        this.fondplatforms.create(1100, 277, 'mfondplatform');
-        
-        this.platforms.create(800, 320, 'mplatform');
-        this.fondplatforms.create(800, 287, 'mfondplatform');
 
         // plateformes de fin du niveau
 
@@ -521,15 +506,6 @@ class TableauTiled extends Tableau{
             faceColor: null // Color of colliding face edges
        });
 
-       //debug boue en rouge
-        this.boue.renderDebug(debug,{
-             tileColor: null, // Couleur des tiles qui ne collident pas
-             collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), //Couleur des tiles qui collident
-             faceColor: null // Color of colliding face edges
-        });
-
-
-
         //---------- parallax ciel (rien de nouveau) -------------
 
         //on change de ciel, on fait une tileSprite ce qui permet d'avoir une image qui se répète
@@ -658,13 +634,11 @@ class TableauTiled extends Tableau{
 
         //quoi collide avec quoi?
         this.physics.add.collider(this.player, this.solides);
-        this.physics.add.collider(this.player, this.boue);
         // this.physics.add.collider(this.plumes, this.solides);
         //si le joueur touche une étoile dans le groupe...
         // this.physics.add.overlap(this.player, this.plumes, this.ramasserEtoile, null, this);
         //quand on touche la boue/eau, on meurt
         this.physics.add.collider(this.player, this.champignon,this.Bounding,null,this);
-        this.physics.add.collider(this.player, this.boue,this.SpeedDown,null,this);
         this.physics.add.collider(this.player, this.eau,this.playerDie,null,this);
 
         //--------- Z order -----------------------
@@ -684,8 +658,6 @@ class TableauTiled extends Tableau{
         this.solides.setDepth(z--);
         this.platforms.setDepth(z--);
         this.champignon.setDepth(z--);
-        this.boueFxContainer.setDepth(z--);
-        this.boue.setDepth(z--);
         this.player.setDepth(z--);
         platformContainer.setDepth(z--);
         // platform.setDepth(z--);
@@ -712,26 +684,6 @@ class TableauTiled extends Tableau{
     optimizeDisplay(){
         //return;
         let world=this.cameras.main.worldView; // le rectagle de la caméra, (les coordonnées de la zone visible)
-
-        // on va activer / désactiver les particules de boue
-        
-        for( let particule of this.boueFxContainer.getAll()){ // parcours toutes les particules de boue
-            if(Phaser.Geom.Rectangle.Overlaps(world,particule.rectangle)){
-                //si le rectangle de la particule est dans le rectangle de la caméra
-                if(!particule.visible){
-                    //on active les particules
-                    particule.resume();
-                    particule.visible=true;
-                }
-            }else{
-                //si le rectangle de la particule n'est PAS dans le rectangle de la caméra
-                if(particule.visible){
-                    //on désactive les particules
-                    particule.pause();
-                    particule.visible=false;
-                }
-            }
-        }
 
         // on va activer / désactiver les particules d'eau
 
