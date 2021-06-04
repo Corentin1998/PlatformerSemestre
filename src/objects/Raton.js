@@ -13,6 +13,7 @@ class Raton extends ObjetEnnemi{
         this.setVelocityX(50);
         this.setCollideWorldBounds(true);
         this.setBounceX(1);
+        this.scene.events.on('update', (time, delta) => { this.update(time, delta)} );
         //on réduit un peu la zone de hit
         //this.setBodySize(this.body.width,this.body.height);
         //this.setOffset(11, 0);
@@ -83,7 +84,7 @@ class Raton extends ObjetEnnemi{
     update(){
         //fait changer de sens notre oiseau
         if(this.body){
-            if(this.body.velocity.x<0){
+            if(this.body.velocity.x>0){
                 this.flipX=false;
             }else{
                 this.flipX=true;

@@ -7,6 +7,9 @@ class Ui extends Phaser.Scene{
     }
     preload(){
         this.load.image('ui/full-screen-icon', 'assets/ui/full-screen.png');
+        this.load.spritesheet('plume', 'assets/plume.png',
+            { frameWidth: 33, frameHeight: 36  }
+        );
     }
     create (){
         console.log("create Ui")
@@ -99,13 +102,28 @@ class Ui extends Phaser.Scene{
         btFs.x=this.sys.canvas.width;
         btFs.y=this.sys.canvas.height;
 
+        this.anims.create({
+            key: 'plume',
+            frames: this.anims.generateFrameNumbers('plume', { start: 0, end: 7 }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        this.plumeScore = this.add.sprite(42, 35, 'plume')
+
     }
     
     // Score
     gagne(points=1)
     {
         this.score+=points;
-        this._scoreText.setText('Plumes: ' + this.score + '/5');
+        this._scoreText.setText('      ' + this.score + '/5');
+    }
+
+    perd(points = 0) {
+        this.score = 0;
+        this._scoreText.setText('      ' + this.score + '/5');
+        ;
     }
 
     update(){

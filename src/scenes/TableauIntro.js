@@ -75,8 +75,8 @@ class TableauIntro extends Phaser.Scene{
                 this.cameras.main.fadeOut(1000, 0, 0, 0)
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => 
                 {
-                    this.game.scene.start(TableauTiled);
-                    this.scene.start("Hunted Birds");
+                    this.game.scene.start();
+                    this.scene.start(" ");
                 })
             }
 

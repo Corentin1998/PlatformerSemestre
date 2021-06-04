@@ -13,6 +13,7 @@ class Squirrel extends ObjetEnnemi{
         this.setVelocityX(50);
         this.setCollideWorldBounds(true);
         this.setBounceX(1);
+        this.scene.events.on('update', (time, delta) => { this.update(time, delta)} );
 
 
         //on réduit un peu la zone de hit
@@ -81,6 +82,17 @@ class Squirrel extends ObjetEnnemi{
                 //     me.start();
                 // }
             })
+    }
+    update(){
+        //fait changer de sens notre oiseau
+        if(this.body){
+            if(this.body.velocity.x>0){
+                this.flipX=false;
+            }else{
+                this.flipX=true;
+            }
+        }
+
     }
 
     // start(){

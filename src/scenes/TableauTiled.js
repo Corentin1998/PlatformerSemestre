@@ -1,7 +1,7 @@
 class TableauTiled extends Tableau{
 
     constructor(){
-        super("Hunted Birds");
+        super(" ");
       }
     /**
      * Ce tableau démontre comment se servir de Tiled, un petit logiciel qui permet de designer des levels et de les importer dans Phaser (entre autre).
