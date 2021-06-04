@@ -33,7 +33,7 @@ class Plant1 extends ObjetPhysique{
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('plant1', { start: 0, end: 7 }),
-            frameRate: 5,
+            frameRate: 7,
             repeat: -1
         });
         
