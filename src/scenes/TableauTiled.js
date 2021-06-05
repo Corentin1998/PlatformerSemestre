@@ -61,18 +61,18 @@ class TableauTiled extends Tableau{
         super.create();
         //musique
         this.game.sound.stopAll();
-        this.music = this.sound.add('music');
+        // this.music = this.sound.add('music');
 
-        var musicConfig = {
-            mute: false,
-            volume: 0.1,
-            rate : 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay:0,
-        }
-        this.music.play(musicConfig);
+        // var musicConfig = {
+        //     mute: false,
+        //     volume: 0.1,
+        //     rate : 1,
+        //     detune: 0,
+        //     seek: 0,
+        //     loop: true,
+        //     delay:0,
+        // }
+        // this.music.play(musicConfig);
 
         //on en aura besoin...
         let ici=this;
@@ -270,7 +270,7 @@ class TableauTiled extends Tableau{
         // });
 
         //----------les monstres volants (objets tiled) ---------------------
-        
+        this.starsFxContainer=this.add.container();
         let monstersContainer=this.add.container();
         let montableau=this;
         this.flyingMonstersObjects = this.map.getObjectLayer('flyingMonsters')['objects'];
@@ -279,6 +279,30 @@ class TableauTiled extends Tableau{
             let monster=new MonsterFly(montableau,monsterObject.x,monsterObject.y);
             monstersContainer.add(monster);
         });
+
+        this.ckpContainer = this.add.container();
+
+        this.checkPointsObjects = this.map.getObjectLayer('ckps')['objects'];
+        this.checkPointsObjects.forEach(checkPointsObject => {
+            let ckp = new checkPoint(
+                this,
+                checkPointsObject.x,
+                checkPointsObject.y - 32,
+                checkPointsObject.properties[0].value
+            );
+            this.physics.add.overlap(this.player, ckp, function()
+            {
+                ckp.savePos();
+                ckp.glow();
+            });
+
+            this.playerPos = ckp.loadPos();
+
+            if(this.playerPos)
+            {
+                ici.player.setPosition(this.playerPos.x, this.playerPos.y - 64);
+            }
+        })
 
         let plumesContainer=this.add.container();
         this.plumeObjects = this.map.getObjectLayer('plumes')['objects'];
@@ -296,7 +320,7 @@ class TableauTiled extends Tableau{
         ici.squirrelObjects = this.map.getObjectLayer('squirrel')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.squirrelObjects.forEach(squirrelObject => {
-            console.log(squirrelObject)
+            // console.log(squirrelObject)
 
             let monster=new Squirrel(montableau,squirrelObject.x,squirrelObject.y);
             //let monster=montableau.create()
@@ -309,7 +333,7 @@ class TableauTiled extends Tableau{
         ici.ratonObjects = this.map.getObjectLayer('raton')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.ratonObjects.forEach(ratonObject => {
-            console.log(ratonObject)
+            // console.log(ratonObject)
 
             let monster=new Raton(montableau,ratonObject.x,ratonObject.y);
             //let monster=montableau.create()
@@ -322,7 +346,7 @@ class TableauTiled extends Tableau{
         ici.bunnyObjects = this.map.getObjectLayer('bunny')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.bunnyObjects.forEach(bunnyObject => {
-            console.log(bunnyObject)
+            // console.log(bunnyObject)
 
             let monster=new Bunny(montableau,bunnyObject.x,bunnyObject.y);
             //let monster=montableau.create()
@@ -335,7 +359,7 @@ class TableauTiled extends Tableau{
         ici.waterfall1Objects = this.map.getObjectLayer('waterfall1')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.waterfall1Objects.forEach(waterfall1Object => {
-            console.log(waterfall1Object)
+            // console.log(waterfall1Object)
 
             let monster=new Waterfall1(montableau,waterfall1Object.x,waterfall1Object.y);
             //let monster=montableau.create()
@@ -348,7 +372,7 @@ class TableauTiled extends Tableau{
         ici.waterfall2Objects = this.map.getObjectLayer('waterfall2')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.waterfall2Objects.forEach(waterfall2Object => {
-            console.log(waterfall2Object)
+            // console.log(waterfall2Object)
 
             let monster=new Waterfall2(montableau,waterfall2Object.x,waterfall2Object.y);
             //let monster=montableau.create()
@@ -361,7 +385,7 @@ class TableauTiled extends Tableau{
         ici.plant1Objects = this.map.getObjectLayer('plant1')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.plant1Objects.forEach(plant1Object => {
-            console.log(plant1Object)
+            // console.log(plant1Object)
 
             let monster=new Plant1(montableau,plant1Object.x,plant1Object.y);
             //let monster=montableau.create()
@@ -374,7 +398,7 @@ class TableauTiled extends Tableau{
         ici.plant2Objects = this.map.getObjectLayer('plant2')['objects'];
         // On crée des montres volants pour chaque objet rencontré
         ici.plant2Objects.forEach(plant2Object => {
-            console.log(plant2Object)
+            // console.log(plant2Object)
 
             let monster=new Plant2(montableau,plant2Object.x,plant2Object.y);
             //let monster=montableau.create()
@@ -654,6 +678,8 @@ class TableauTiled extends Tableau{
         //this.devant.setDepth(z--);
         this.premierplan.setDepth(z--);
         this.planbuissonshaut.setDepth(z--);
+        this.ckpContainer.setDepth(z--);
+        this.starsFxContainer.setDepth(z--);
         this.planbuissonshaut2.setDepth(z--);    
         this.solides.setDepth(z--);
         this.platforms.setDepth(z--);

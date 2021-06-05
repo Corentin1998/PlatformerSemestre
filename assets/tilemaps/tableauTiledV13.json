@@ -166,6 +166,35 @@
         }, 
         {
          "draworder":"topdown",
+         "id":18,
+         "name":"ckps",
+         "objects":[
+                {
+                 "gid":87,
+                 "height":64,
+                 "id":627,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Number",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":6208,
+                 "y":483.75
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":2,
          "name":"plumes",
          "objects":[
@@ -2893,8 +2922,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":18,
- "nextobjectid":627,
+ "nextlayerid":19,
+ "nextobjectid":628,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
