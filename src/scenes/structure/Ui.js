@@ -126,10 +126,27 @@ class Ui extends Phaser.Scene{
         ;
     }
 
+    cacherUI(){
+
+        if (this.uiActif === false) {
+            this._scoreText.setAlpha(0);
+            this.plumeScore.setAlpha(0);
+            this._tableauText.setAlpha(0);
+            this._tableauTextClass.setAlpha(0);
+            this._hpText.setAlpha(0);
+        }else{
+            this._scoreText.setAlpha(1);
+            this.plumeScore.setAlpha(1);
+            this._tableauText.setAlpha(1);
+            this._tableauTextClass.setAlpha(1);
+            this._hpText.setAlpha(1);
+        }
+    }
+
     update(){
         if(Tableau.current){
             this._tableauText.setText(Tableau.current.scene.key);
-            this._tableauTextClass.setText(Tableau.current.constructor.name);
+            //this._tableauTextClass.setText(Tableau.current.constructor.name);
         }
     }
 }

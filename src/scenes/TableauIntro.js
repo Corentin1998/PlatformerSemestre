@@ -14,7 +14,8 @@ class TableauIntro extends Phaser.Scene{
   
     create()
     {
-        
+        ui.uiActif = false;
+        ui.cacherUI();
 
      
 
